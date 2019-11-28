@@ -1,0 +1,10 @@
+name: dva
+version: 0.0.1+1
+dependencies:
+  args: any
+
+executables:
+  dva: main
+
+# 一些命令备注
+#  pub global activate --source $(pwd)

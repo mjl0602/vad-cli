@@ -1,0 +1,6 @@
+{
+   "type": "normal",
+   "name": "Dva-Cli Project",
+   "dataPath": "./src/table-data/",
+   "pagePath": "./src/table-page/"
+}
