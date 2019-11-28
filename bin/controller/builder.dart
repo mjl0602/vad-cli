@@ -4,7 +4,7 @@ import '../model/dvaConfig.dart';
 import '../model/dvaKey.dart';
 import '../model/dvaProject.dart';
 import '../model/dvaTable.dart';
-import '../utils/dvaPath.dart';
+import '../utils/path.dart';
 
 /// @@@ 将会被替换为key
 /// ### 会被替换成description

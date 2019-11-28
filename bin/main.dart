@@ -8,7 +8,7 @@ import 'model/dvaConfig.dart';
 import 'model/dvaKey.dart';
 import 'model/dvaProject.dart';
 import 'model/dvaTable.dart';
-import 'utils/dvaPath.dart'; // 使用其中两个类ArgParser和ArgResults
+import 'utils/path.dart'; // 使用其中两个类ArgParser和ArgResults
 
 ArgResults argResults; // 声明ArgResults类型的顶级变量，保存解析的参数结果
 // 同时，argResults也是ArgResults的实例
