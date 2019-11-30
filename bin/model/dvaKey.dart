@@ -24,7 +24,6 @@ enum FormType {
 enum SubmitType {
   string,
   date,
-  number,
   float,
   integer,
 }
@@ -34,10 +33,11 @@ enum SubmitType {
 ///
 
 class DvaKey {
-  /// 名称
+  /// 名称,键
   final String description;
+  final String key;
 
-  /// 默认值
+  /// 默认值,是一个js表达式
   final String value;
 
   // 各种枚举类型
@@ -46,10 +46,11 @@ class DvaKey {
   final SubmitType submitType;
 
   DvaKey({
-    this.value,
+    this.key,
     this.description,
-    this.tableType,
-    this.formType,
-    this.submitType,
+    this.value,
+    this.tableType: TableType.string,
+    this.formType: FormType.string,
+    this.submitType: SubmitType.string,
   });
 }

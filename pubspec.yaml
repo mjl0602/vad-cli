@@ -2,9 +2,8 @@ name: dva
 version: 0.0.1+1
 dependencies:
   args: any
-
+  path: ^1.6.4
 executables:
   dva: main
-
 # 一些命令备注
-#  pub global activate --source $(pwd)
+#  pub global activate --source path $(pwd)

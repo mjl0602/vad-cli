@@ -23,9 +23,10 @@ main(List<String> args) async {
     );
   var command = argParser.parse(args).arguments.first;
   // abbr表示缩写或别名，defaultsTo表示默认值
-  print(command);
+  print('读取命令:$command');
   var file = File.fromUri(shellPath.resolve('dva-config.json'));
   DvaConfig config = DvaConfig.defaultConfig();
+  print('读取配置...');
   if (command == 'config') {
     file.createSync();
     file.writeAsStringSync(
@@ -47,9 +48,13 @@ main(List<String> args) async {
       name: '',
       list: [
         DvaTable(
-          name: 'user',
+          name: 'admin',
           list: [
-            // DvaKey(),
+            DvaKey(
+              value: '默认管理员',
+              key: 'name',
+              description: '姓名',
+            ),
           ],
         ),
       ],

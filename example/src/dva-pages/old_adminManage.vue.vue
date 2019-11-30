@@ -12,7 +12,11 @@
       highlight-current-row
     >
       <!-- 内容 -->
-      <!-- table insert -->
+          <el-table-column label="姓名" align="center">
+      <template slot-scope="scope">
+        {{scope.row.name}}
+      </template>
+    </el-table-column>
       <!-- 操作 -->
       <el-table-column class-name="status-col" label="操作" align="center" width="220">
         <template slot-scope="scope">
@@ -44,7 +48,9 @@
         label-width="100px"
         style="width: 400px; margin-left:50px;"
       >
-        <!-- form insert -->
+            <el-form-item label="姓名" prop="name">
+      <el-input v-model="row.name" placeHolder="请输入姓名"/>
+    </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submit">提交</el-button>
@@ -55,7 +61,7 @@
 
 <script>
 import AdminTableMixin from "./basic/mixin.js";
-// import AdminObject from "##dataPath##";
+import AdminObject from "../dva-api/admin.js";
 
 export default {
   filters: {},
@@ -66,7 +72,7 @@ export default {
   data() {
     return {
       // 本页查看的对象名称
-      objStr: "##filename##",
+      objStr: "admin",
       // 数据源
       source: new DataSource()
       // rules: this.source.rules,
@@ -75,7 +81,7 @@ export default {
   methods: {}
 };
 
-const tableName = "##tableName##";
+const tableName = "admin";
 
 /**
  * 增删查改等处理
@@ -84,12 +90,14 @@ const tableName = "##tableName##";
 class DataSource {
   // 默认的内容
   defaultObject = {
-    /** property */
+    name:"默认管理员",
+    
   };
 
   // 表单规则
   rules = {
-    /** rules */
+    name:[{ required: true, message: "必填", trigger: "blur" }],
+    
   };
   /**
    * 【查询全部】
@@ -131,7 +139,8 @@ class DataSource {
 
   // 修改对象
   buildObj(res, obj) {
-    /** edit */
+    res.set("name", obj.name)
+
     return res;
   }
 

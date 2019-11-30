@@ -1,6 +1,7 @@
 {
    "type": "normal",
-   "name": "Dva-Cli Project",
-   "dataPath": "./src/table-data/",
-   "pagePath": "./src/table-page/"
+   "name": "Dva-Cli Project3",
+   "apiPath": "./src/dva-api/",
+   "pagePath": "./src/dva-pages/",
+   "dataPath": "./src/dva-data/"
 }

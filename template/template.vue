@@ -12,7 +12,7 @@
       highlight-current-row
     >
       <!-- 内容 -->
-      
+      <!-- table insert -->
       <!-- 操作 -->
       <el-table-column class-name="status-col" label="操作" align="center" width="220">
         <template slot-scope="scope">
@@ -44,7 +44,7 @@
         label-width="100px"
         style="width: 400px; margin-left:50px;"
       >
-        
+        <!-- form insert -->
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submit">提交</el-button>
@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import AdminTableMixin from "./basic/admin_mixin";
-import AdminObject from "./basic/adminobject";
+import AdminTableMixin from "./basic/mixin.js";
+import AdminObject from "##dataPath##";
 
 export default {
   filters: {},
@@ -66,16 +66,16 @@ export default {
   data() {
     return {
       // 本页查看的对象名称
-      objStr: "user",
+      objStr: "##filename##",
       // 数据源
-      source: new DataSource(),
+      source: new AdminObject()
       // rules: this.source.rules,
     };
   },
   methods: {}
 };
 
-const tableName = "user";
+const tableName = "##tableName##";
 
 /**
  * 增删查改等处理
@@ -84,12 +84,12 @@ const tableName = "user";
 class DataSource {
   // 默认的内容
   defaultObject = {
-    
+    /** property */
   };
 
   // 表单规则
   rules = {
-    
+    /** rules */
   };
   /**
    * 【查询全部】
@@ -131,7 +131,7 @@ class DataSource {
 
   // 修改对象
   buildObj(res, obj) {
-    
+    /** edit */
     return res;
   }
 
