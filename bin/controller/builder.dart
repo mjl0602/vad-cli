@@ -217,21 +217,6 @@ class DvaProjectBuilder {
 
   /// 提交
   String sumitTemp(DvaKey key) {
-    String str = '';
-    switch (key.submitType) {
-      case SubmitType.string:
-        str = 'res.set("###", obj.###)\n';
-        break;
-      case SubmitType.date:
-        str = 'res.set("###", new Date(obj.###))\n';
-        break;
-      case SubmitType.float:
-        str = 'res.set("###", parseFloat(obj.###))\n';
-        break;
-      case SubmitType.integer:
-        str = 'res.set("###", parseInt(obj.###))\n';
-        break;
-    }
-    return str.replaceAll('@@@', key.description).replaceAll('###', key.key);
+    return '';
   }
 }

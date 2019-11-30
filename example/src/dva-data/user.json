@@ -1,9 +1,14 @@
 {
-  "sadfdsa": "1312",
-  "asdf": "1312",
-  "fsadf": "1312",
-  "sdafsadf": "1312",
-  "sadfasdf": "1312",
-  "sadfasfd": "1312",
-  "sadfsadf": "1312"
+  "asdfasf": "safasgfsag",
+  "asdfas214f": "safasgfsag",
+  "asdfa21421sf": "safasgfsag",
+  "asdfa4214sf": "safasgfsag",
+  "asdfa214sf": "safasgfs124ag",
+  "asd": {
+    "type": "string",
+    "formType": "date",
+    "submitType": "string",
+    "defaultValue": "'asd'",
+    "description": "更新日期"
+  }
 }

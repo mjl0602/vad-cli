@@ -14,7 +14,7 @@ import 'utils/path.dart'; // 使用其中两个类ArgParser和ArgResults
 ArgResults _argResults; // 声明ArgResults类型的顶级变量，保存解析的参数结果
 // 同时，argResults也是ArgResults的实例
 
-main(List<String> args) async {
+main(List<String> args) {
   // 创建ArgParser的实例，同时指定需要输入的参数
   final ArgParser argParser = new ArgParser()
     ..addOption(

@@ -7,12 +7,32 @@ import Source from "../utils/dataSource.js";
 export default class DataSource extends Source {
   // 默认的内容
   defaultObject = {
-    /** property */
+    asdfasf: "",
+
+    asdfas214f: "",
+
+    asdfa21421sf: "",
+
+    asdfa4214sf: "",
+
+    asdfa214sf: "",
+
+    asd: "asd",
   };
 
   // 表单规则
   rules = {
-    /** rules */
+    asdfasf: [{ required: true, message: "必填", trigger: "blur" }],
+
+    asdfas214f: [{ required: true, message: "必填", trigger: "blur" }],
+
+    asdfa21421sf: [{ required: true, message: "必填", trigger: "blur" }],
+
+    asdfa4214sf: [{ required: true, message: "必填", trigger: "blur" }],
+
+    asdfa214sf: [{ required: true, message: "必填", trigger: "blur" }],
+
+    asd: [{ required: true, message: "必填", trigger: "blur" }],
   };
   /**
    * 【查询全部】
@@ -39,6 +59,7 @@ export default class DataSource extends Source {
 
   // 上传修改
   async edit(obj) {
+    
     let bq = Bmob.Query(tableName);
     let res = await bq.get(obj.objectId);
     res = this.buildObj(res, obj);
@@ -54,7 +75,9 @@ export default class DataSource extends Source {
 
   // 修改对象
   buildObj(res, obj) {
-    /** edit */
+    res.set("update", obj.update);
+    res.set("name", obj.name);
+
     return res;
   }
 

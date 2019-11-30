@@ -12,21 +12,15 @@
       highlight-current-row
     >
       <!-- 内容 -->
-          <el-table-column label="角色" align="center">
-      <template slot-scope="scope">
-        {{scope.row.roles}}
-      </template>
-    </el-table-column>
-    <el-table-column label="更新日期" align="center">
-      <template slot-scope="scope">
-        {{scope.row.update}}
-      </template>
-    </el-table-column>
-    <el-table-column label="NNNNN" align="center">
-      <template slot-scope="scope">
-        {{scope.row.name}}
-      </template>
-    </el-table-column>
+      <el-table-column label="角色" align="center">
+        <template slot-scope="scope">{{scope.row.roles}}</template>
+      </el-table-column>
+      <el-table-column label="更新日期" align="center">
+        <template slot-scope="scope">{{scope.row.update}}</template>
+      </el-table-column>
+      <el-table-column label="NNNNN" align="center">
+        <template slot-scope="scope">{{scope.row.name}}</template>
+      </el-table-column>
       <!-- 操作 -->
       <el-table-column class-name="status-col" label="操作" align="center" width="220">
         <template slot-scope="scope">
@@ -58,27 +52,24 @@
         label-width="100px"
         style="width: 400px; margin-left:50px;"
       >
-            <el-form-item label="角色" prop="roles">
-      <el-input v-model="row.roles" placeHolder="请输入角色"/>
-    </el-form-item>
-    <el-date-picker
-      v-model="row.update"
-      align="right"
-      type="date"
-      placeholder="选择更新日期"
-      :picker-options="datePickOption"
-      >
-    </el-date-picker>
-        
-    <el-date-picker
-      v-model="row.name"
-      align="right"
-      type="date"
-      placeholder="选择NNNNN"
-      :picker-options="datePickOption"
-      >
-    </el-date-picker>
-        
+        <el-form-item label="角色" prop="roles">
+          <el-input v-model="row.roles" placeholder="请输入角色" />
+        </el-form-item>
+        <el-date-picker
+          v-model="row.update"
+          align="right"
+          type="date"
+          placeholder="选择更新日期"
+          :picker-options="datePickOption"
+        ></el-date-picker>
+
+        <el-date-picker
+          v-model="row.name"
+          align="right"
+          type="date"
+          placeholder="选择NNNNN"
+          :picker-options="datePickOption"
+        ></el-date-picker>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submit">提交</el-button>
@@ -89,7 +80,7 @@
 
 <script>
 import AdminTableMixin from "./basic/mixin.js";
-import AdminObject from "../dva-api/admin.js";
+import AdminObject from "../dva-sb-api/admin.js";
 
 export default {
   filters: {},
@@ -106,7 +97,8 @@ export default {
       // rules: this.source.rules,
     };
   },
-  methods: {}
+  methods: {
+  }
 };
 </script>
 <style>

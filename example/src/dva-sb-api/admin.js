@@ -7,12 +7,20 @@ import Source from "../utils/dataSource.js";
 export default class DataSource extends Source {
   // 默认的内容
   defaultObject = {
-    /** property */
+    roles: "",
+
+    update: 23135,
+
+    name: 23135,
   };
 
   // 表单规则
   rules = {
-    /** rules */
+    roles: [{ required: true, message: "必填", trigger: "blur" }],
+
+    update: [{ required: true, message: "必填", trigger: "blur" }],
+
+    name: [{ required: true, message: "必填", trigger: "blur" }],
   };
   /**
    * 【查询全部】
@@ -52,9 +60,15 @@ export default class DataSource extends Source {
     return res.save();
   }
 
+
+  sb(){
+    
+  }
+
   // 修改对象
   buildObj(res, obj) {
-    /** edit */
+    res.set("update", obj.update);
+    res.set("name", obj.name);
     return res;
   }
 

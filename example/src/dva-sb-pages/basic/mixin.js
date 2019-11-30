@@ -1,4 +1,4 @@
-import DataSource from "../../../dva-api/super/dataSource.js";
+import DataSource from "../../../dva-sb-api/super/dataSource.js";
 
 export default {
   computed: {
