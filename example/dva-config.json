@@ -1,7 +1,0 @@
-{
-   "type": "normal",
-   "name": "Dva-Cli Project",
-   "apiPath": "./src/dva-sb-api/",
-   "pagePath": "./src/dva-sb-pages/",
-   "dataPath": "./src/dva-data/"
-}

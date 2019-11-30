@@ -14,7 +14,6 @@ class BmobProjectBuilder extends DvaProjectBuilder {
           config,
           project,
         );
-
   @override
   String sumitTemp(DvaKey key) {
     String str = '';
