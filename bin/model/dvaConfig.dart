@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import '../utils/safeMap.dart';
 
 class DvaConfig {
@@ -49,6 +52,17 @@ class DvaConfig {
         'pagePath': pagePath,
         'dataPath': dataPath,
       };
+
+  /// 创建默认配置
+  static DvaConfig fromFile(File file) {
+    if (!file.existsSync()) {
+      throw '没有找到config文件,读取配置失败\n你可以使用 dva config 命令来初始化一个config';
+    } else {
+      
+      print('配置读取完成');
+      return DvaConfig.fromJson(json.decode(file.readAsStringSync()));
+    }
+  }
 
   @override
   String toString() {

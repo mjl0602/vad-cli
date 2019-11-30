@@ -9,6 +9,8 @@ import '../utils/type.dart';
 
 /// @@@ 将会被替换为description
 /// ### 会被替换成key
+
+/// 默认的项目创建器
 class DvaProjectBuilder {
   final DvaProject project;
   final DvaConfig config;
@@ -30,10 +32,10 @@ class DvaProjectBuilder {
   /// mixin的路径
   Uri get mixinPath => Uri.parse(config.pagePath).resolve('basic/mixin.js');
 
-  DvaProjectBuilder({
-    this.config: const DvaConfig.defaultConfig(),
+  DvaProjectBuilder(
+    this.config,
     this.project,
-  }) : assert(project != null);
+  ) : assert(project != null);
 
   /// 初始化项目文件夹结构
   /// 其中mixin需要关联dataSource
@@ -63,15 +65,19 @@ class DvaProjectBuilder {
   }
 
   /// 保存项目
-  saveProject() {
-    initProject();
-
+  saveProject([String target]) {
     /// 生成主要文件
     for (var table in project.list) {
       // 生成数据
       var dataUri = Uri.parse(config.apiPath).resolve('${table.name}.js');
       var dataFile = File.fromUri(dataUri);
-
+      // 如果指定文件
+      if (target != null && target != 'all') {
+        if (target != table.name) {
+          print('$target ${table.name}');
+          continue;
+        }
+      }
       dataFile.createSync(recursive: true);
       dataFile.writeAsStringSync(
         buildPage(
@@ -79,9 +85,9 @@ class DvaProjectBuilder {
           table,
         ),
       );
-
+      print('生成:${dataFile.path}');
       // 生成页面
-      savaFileAndRenameOld(
+      savaFile(
         buildPage(pageTemplate, table).replaceAll(
           '##dataPath##',
           path.relative(
@@ -96,18 +102,9 @@ class DvaProjectBuilder {
   }
 
   // 保存文件，如果存在，会将旧文件重命名为old后继续保存
-  savaFileAndRenameOld(String content, Uri path, String fileName) {
+  savaFile(String content, Uri path, String fileName) {
     var file = File.fromUri(path.resolve('${fileName}Manage.vue'));
-    if (file.existsSync()) {
-      file.renameSync(
-        path
-            .resolve('old_${fileName}Manage.vue.vue')
-            .toFilePath(windows: Platform.isWindows),
-      );
-      file = File.fromUri(path.resolve('${fileName}Manage.vue'));
-    }
-    print('写入文件:${file.path}');
-
+    print('生成:${file.path}');
     file.createSync(recursive: true);
     file.writeAsStringSync(content);
   }
