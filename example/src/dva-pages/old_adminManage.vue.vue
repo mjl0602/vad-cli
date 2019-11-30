@@ -12,11 +12,15 @@
       highlight-current-row
     >
       <!-- 内容 -->
-          <el-table-column label="姓名" align="center">
-      <template slot-scope="scope">
-        {{scope.row.name}}
-      </template>
-    </el-table-column>
+      <el-table-column label="角色" align="center">
+        <template slot-scope="scope">{{scope.row.roles}}</template>
+      </el-table-column>
+      <el-table-column label="更新日期" align="center">
+        <template slot-scope="scope">{{scope.row.update}}</template>
+      </el-table-column>
+      <el-table-column label="NNNNN" align="center">
+        <template slot-scope="scope">{{scope.row.name}}</template>
+      </el-table-column>
       <!-- 操作 -->
       <el-table-column class-name="status-col" label="操作" align="center" width="220">
         <template slot-scope="scope">
@@ -48,9 +52,24 @@
         label-width="100px"
         style="width: 400px; margin-left:50px;"
       >
-            <el-form-item label="姓名" prop="name">
-      <el-input v-model="row.name" placeHolder="请输入姓名"/>
-    </el-form-item>
+        <el-form-item label="角色" prop="roles">
+          <el-input v-model="row.roles" placeholder="请输入角色" />
+        </el-form-item>
+        <el-date-picker
+          v-model="row.update"
+          align="right"
+          type="date"
+          placeholder="选择更新日期"
+          :picker-options="datePickOption"
+        ></el-date-picker>
+
+        <el-date-picker
+          v-model="row.name"
+          align="right"
+          type="date"
+          placeholder="选择NNNNN"
+          :picker-options="datePickOption"
+        ></el-date-picker>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submit">提交</el-button>
@@ -74,82 +93,12 @@ export default {
       // 本页查看的对象名称
       objStr: "admin",
       // 数据源
-      source: new DataSource()
+      source: new AdminObject()
       // rules: this.source.rules,
     };
   },
   methods: {}
 };
-
-const tableName = "admin";
-
-/**
- * 增删查改等处理
- */
-
-class DataSource {
-  // 默认的内容
-  defaultObject = {
-    name:"默认管理员",
-    
-  };
-
-  // 表单规则
-  rules = {
-    name:[{ required: true, message: "必填", trigger: "blur" }],
-    
-  };
-  /**
-   * 【查询全部】
-   * 如果返回数组对象，则页面不翻页，
-   * 如果返回{total:88,data:[]}对象，
-   * 则页面出现翻页标签。
-   *
-   * */
-  async all(q) {
-    let query = Bmob.Query(tableName);
-    let count = await query.count();
-    if (q.page && q.pageSize) {
-      query.skip(q.pageSize * (q.page - 1));
-      query.limit(q.pageSize);
-    }
-
-    query.order("-createdAt");
-    let list = await query.find();
-    return {
-      total: count,
-      data: list
-    };
-  }
-
-  // 上传修改
-  async edit(obj) {
-    let bq = Bmob.Query(tableName);
-    let res = await bq.get(obj.objectId);
-    res = this.buildObj(res, obj);
-    return res.save();
-  }
-
-  // 添加
-  async add(obj) {
-    let res = Bmob.Query(tableName);
-    res = this.buildObj(res, obj);
-    return res.save();
-  }
-
-  // 修改对象
-  buildObj(res, obj) {
-    res.set("name", obj.name)
-
-    return res;
-  }
-
-  // 删除
-  async deleteObj(obj) {
-    let bq = Bmob.Query(tableName);
-    return bq.destroy(obj.objectId);
-  }
-}
 </script>
 <style>
 </style>

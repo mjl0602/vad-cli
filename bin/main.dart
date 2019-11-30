@@ -44,20 +44,6 @@ main(List<String> args) async {
   }
   DvaProjectBuilder(
     config: config,
-    project: DvaProject(
-      name: '',
-      list: [
-        DvaTable(
-          name: 'admin',
-          list: [
-            DvaKey(
-              value: '默认管理员',
-              key: 'name',
-              description: '姓名',
-            ),
-          ],
-        ),
-      ],
-    ),
+    project: DvaProject.fromPath(Uri.parse(config.dataPath)),
   ).saveProject();
 }

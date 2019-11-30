@@ -1,4 +1,4 @@
-import DataSource from "../../../dva-api/utils/dataSource.js";
+import DataSource from "../../../dva-api/super/dataSource.js";
 
 export default {
   computed: {
@@ -24,7 +24,7 @@ export default {
       // 增加使用的对象
       row: {},
       rules: {},
-      source: DataSource,
+      source: new DataSource(),
       datePickOption: {
         shortcuts: [
           {

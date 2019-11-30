@@ -1,5 +1,4 @@
 import '../utils/safeMap.dart';
-import 'package:path/path.dart' as path;
 
 class DvaConfig {
   /// 项目类型
@@ -17,21 +16,12 @@ class DvaConfig {
   /// 页面的路径，可以为空
   final String pagePath;
 
-  // String get relativeFromPageToMixin {
-  //   Uri.parse(
-  //     path.relative(
-  //       Uri.parse(dataPath).resolve('admin'),
-  //       from: pagePath,
-  //     ),
-  //   ).resolve('${name}.js').path;
-  // }
-
   const DvaConfig({
-    this.type: 'normal',
-    this.name: 'Dva-Cli Project',
-    this.apiPath: './src/dva-api/',
-    this.pagePath: './src/dva-pages/',
-    this.dataPath: './src/dva-data/',
+    this.type,
+    this.name,
+    this.apiPath,
+    this.dataPath,
+    this.pagePath,
   });
 
   DvaConfig.fromJson(Map<String, dynamic> map)
@@ -43,7 +33,14 @@ class DvaConfig {
           dataPath: SafeMap(map)['dataPath'].string,
         );
 
-  const DvaConfig.defaultConfig() : this();
+  const DvaConfig.defaultConfig()
+      : this(
+          type: 'normal',
+          name: 'Dva-Cli Project',
+          apiPath: './src/dva-api/',
+          pagePath: './src/dva-pages/',
+          dataPath: './src/dva-data/',
+        );
 
   Map<String, dynamic> get map => {
         'type': type,

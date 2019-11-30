@@ -5,12 +5,30 @@ import '../model/dvaKey.dart';
 import '../model/dvaProject.dart';
 import '../model/dvaTable.dart';
 import '../utils/path.dart';
+import '../utils/type.dart';
 
 /// @@@ 将会被替换为description
 /// ### 会被替换成key
 class DvaProjectBuilder {
   final DvaProject project;
   final DvaConfig config;
+
+  // 模板路径
+  Uri get jsonTemplate => templatePath.resolve('temp_admin.json');
+  Uri get dataSourceTemplate => templatePath.resolve('temp_dataSource.js');
+  Uri get pageTemplate => templatePath.resolve('temp_page.vue');
+  Uri get mixinTemplate => templatePath.resolve('temp_mixin.js');
+  Uri get apiTemplate => templatePath.resolve('temp_api.js');
+
+  /// 示范JSON
+  Uri get exampleJson => Uri.parse(config.dataPath).resolve('admin.json');
+
+  /// 数据源的父类路径
+  Uri get dataSource =>
+      Uri.parse(config.apiPath).resolve('super/dataSource.js');
+
+  /// mixin的路径
+  Uri get mixinPath => Uri.parse(config.pagePath).resolve('basic/mixin.js');
 
   DvaProjectBuilder({
     this.config: const DvaConfig.defaultConfig(),
@@ -21,38 +39,27 @@ class DvaProjectBuilder {
   /// 其中mixin需要关联dataSource
   initProject() {
     // 创建数据源结构，用于举例子
-    var dvaSource = File.fromUri(
-      Uri.parse(config.dataPath).resolve('admin.json'),
-    );
-    dvaSource.createSync(recursive: true);
-    dvaSource.writeAsStringSync(
-      File.fromUri(templatePath.resolve('admin.json')).readAsStringSync(),
-    );
-
+    File.fromUri(exampleJson)
+      ..createSync(recursive: true)
+      ..writeAsStringSync(
+        File.fromUri(jsonTemplate).readAsStringSync(),
+      );
     // 创建api父类结构并写入父类
-    var api = File.fromUri(
-      Uri.parse(config.apiPath).resolve('utils/dataSource.js'),
-    );
-    api.createSync(recursive: true);
-    var apiContent = File.fromUri(
-      templatePath.resolve('dataSource.js'),
-    ).readAsStringSync();
-    api.writeAsStringSync(apiContent);
-
+    var apiContent = File.fromUri(dataSourceTemplate).readAsStringSync();
+    var api = File.fromUri(dataSource)
+      ..createSync(recursive: true)
+      ..writeAsStringSync(apiContent);
     // 创建页面结构并写入mixin,并依赖到api类的父类
-    var pageMixin = File.fromUri(
-      Uri.parse(config.pagePath).resolve('basic/mixin.js'),
-    );
-    pageMixin.createSync(recursive: true);
-    var mixinContent = File.fromUri(
-      templatePath.resolve('mixin.js'),
-    ).readAsStringSync();
-    pageMixin.writeAsStringSync(
-      mixinContent.replaceAll(
-        '##dataSourcePath##',
-        path.relative(api.path, from: pageMixin.path),
-      ),
-    );
+    var mixinContent = File.fromUri(mixinTemplate).readAsStringSync();
+
+    File.fromUri(mixinPath)
+      ..createSync(recursive: true)
+      ..writeAsStringSync(
+        mixinContent.replaceAll(
+          '##dataSourcePath##',
+          path.relative(api.path, from: mixinPath.path),
+        ),
+      );
   }
 
   /// 保存项目
@@ -63,25 +70,25 @@ class DvaProjectBuilder {
     for (var table in project.list) {
       // 生成数据
       var dataUri = Uri.parse(config.apiPath).resolve('${table.name}.js');
-      var api = File.fromUri(
-        dataUri,
-      );
-      api.createSync(recursive: true);
-      var apiContent = File.fromUri(
-        templatePath.resolve('dataSource.js'),
-      ).readAsStringSync();
-      api.writeAsStringSync(apiContent);
-      // 生成页面
-      var content = buildVuePage(
-        templatePath.resolve('./template.vue'),
-        path.relative(
-          dataUri.path,
-          from: shellPath.resolve(config.pagePath).path,
+      var dataFile = File.fromUri(dataUri);
+
+      dataFile.createSync(recursive: true);
+      dataFile.writeAsStringSync(
+        buildPage(
+          apiTemplate,
+          table,
         ),
-        table,
       );
+
+      // 生成页面
       savaFileAndRenameOld(
-        content,
+        buildPage(pageTemplate, table).replaceAll(
+          '##dataPath##',
+          path.relative(
+            dataUri.path,
+            from: shellPath.resolve(config.pagePath).path,
+          ),
+        ),
         shellPath.resolve(config.pagePath),
         table.name,
       );
@@ -107,7 +114,7 @@ class DvaProjectBuilder {
 
   /// 获取Vue Page内容，并写入到对应Uri的文件
   /// page需要关联到dataSource的子类上
-  String buildVuePage(Uri tempUri, String dataRelative, DvaTable table) {
+  String buildPage(Uri tempUri, DvaTable table) {
     // 内容
     String tableContent = table.build((key) => tableTemp(key));
     String formContent = table.build((key) => formTemp(key));
@@ -118,10 +125,6 @@ class DvaProjectBuilder {
     /// 替换 vue 内容
     return File.fromUri(tempUri)
         .readAsStringSync()
-        .replaceAll(
-          '##dataPath##',
-          dataRelative,
-        )
         .replaceAll('##filename##', table.name)
         .replaceAll("##tableName##", table.name)
         .replaceAll("<!-- table insert -->", tableContent)
@@ -162,7 +165,7 @@ class DvaProjectBuilder {
     </el-time-picker>
     ''';
         break;
-      case FormType.datetime:
+      case FormType.dateTime:
         str = '''
     <el-date-picker
       v-model="row.###"
@@ -203,7 +206,7 @@ class DvaProjectBuilder {
 
   /// 默认值
   String defaultValueTemp(DvaKey key) {
-    return '###:"${key.value}",\n    '
+    return '###:${key.value},\n    '
         .replaceAll('@@@', key.description)
         .replaceAll('###', key.key);
   }
