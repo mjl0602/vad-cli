@@ -3,7 +3,7 @@ import 'dart:io';
 
 import '../utils/safeMap.dart';
 
-class DvaConfig {
+class VadConfig {
   /// 项目类型
   final String type;
 
@@ -19,7 +19,7 @@ class DvaConfig {
   /// 页面的路径，可以为空
   final String pagePath;
 
-  const DvaConfig({
+  const VadConfig({
     this.type,
     this.name,
     this.apiPath,
@@ -27,7 +27,7 @@ class DvaConfig {
     this.pagePath,
   });
 
-  DvaConfig.fromJson(Map<String, dynamic> map)
+  VadConfig.fromJson(Map<String, dynamic> map)
       : this(
           type: SafeMap(map)['type'].string,
           name: SafeMap(map)['name'].string,
@@ -36,13 +36,13 @@ class DvaConfig {
           dataPath: SafeMap(map)['dataPath'].string,
         );
 
-  const DvaConfig.defaultConfig()
+  const VadConfig.defaultConfig()
       : this(
           type: 'normal',
-          name: 'Dva-Cli Project',
-          apiPath: './src/dva-api/',
-          pagePath: './src/dva-pages/',
-          dataPath: './src/dva-data/',
+          name: 'Vad-Cli Project',
+          apiPath: './src/vad-api/',
+          pagePath: './src/vad-pages/',
+          dataPath: './src/vad-data/',
         );
 
   Map<String, dynamic> get map => {
@@ -54,18 +54,18 @@ class DvaConfig {
       };
 
   /// 创建默认配置
-  static DvaConfig fromFile(File file) {
+  static VadConfig fromFile(File file) {
     if (!file.existsSync()) {
-      throw '没有找到config文件,读取配置失败\n你可以使用 dva config 命令来初始化一个config';
+      throw '没有找到config文件,读取配置失败\n你可以使用 vad config 命令来初始化一个config';
     } else {
       
       print('配置读取完成');
-      return DvaConfig.fromJson(json.decode(file.readAsStringSync()));
+      return VadConfig.fromJson(json.decode(file.readAsStringSync()));
     }
   }
 
   @override
   String toString() {
-    return 'DvaConfig:$map';
+    return 'VadConfig:$map';
   }
 }

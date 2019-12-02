@@ -7,7 +7,7 @@ import '../utils/type.dart';
 /// 解析单个key的描述
 ///
 
-class DvaKey {
+class VadKey {
   /// 名称,键
   final String description;
   final String key;
@@ -20,7 +20,7 @@ class DvaKey {
   final FormType formType;
   final SubmitType submitType;
 
-  DvaKey({
+  VadKey({
     this.key,
     this.description,
     this.value,

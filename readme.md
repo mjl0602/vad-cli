@@ -1,10 +1,10 @@
 
 
-# Dart-Vue-Admin-Cli
-使用dart语言编写的vue-admin代码生成器，简称Dva-Cli
+# Vue-Admin-Dart-Cli
+使用dart语言编写的vue-admin代码生成器，简称Vad-Cli
 
 # Command
-## dva config
-## dva init
-## dva build user
-## dva build all
+## vad config
+## vad init
+## vad build user
+## vad build all

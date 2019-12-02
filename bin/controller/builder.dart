@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import '../model/dvaConfig.dart';
-import '../model/dvaKey.dart';
-import '../model/dvaProject.dart';
-import '../model/dvaTable.dart';
+import '../model/vadConfig.dart';
+import '../model/vadKey.dart';
+import '../model/vadProject.dart';
+import '../model/vadTable.dart';
 import '../utils/path.dart';
 import '../utils/type.dart';
 
@@ -11,9 +11,9 @@ import '../utils/type.dart';
 /// ### 会被替换成key
 
 /// 默认的项目创建器
-class DvaProjectBuilder {
-  final DvaProject project;
-  final DvaConfig config;
+class VadProjectBuilder {
+  final VadProject project;
+  final VadConfig config;
 
   // 模板路径
   Uri get jsonTemplate => templatePath.resolve('temp_admin.json');
@@ -32,7 +32,7 @@ class DvaProjectBuilder {
   /// mixin的路径
   Uri get mixinPath => Uri.parse(config.pagePath).resolve('basic/mixin.js');
 
-  DvaProjectBuilder(
+  VadProjectBuilder(
     this.config,
     this.project,
   ) : assert(project != null);
@@ -111,7 +111,7 @@ class DvaProjectBuilder {
 
   /// 获取Vue Page内容，并写入到对应Uri的文件
   /// page需要关联到dataSource的子类上
-  String buildPage(Uri tempUri, DvaTable table) {
+  String buildPage(Uri tempUri, VadTable table) {
     // 内容
     String tableContent = table.build((key) => tableTemp(key));
     String formContent = table.build((key) => formTemp(key));
@@ -132,7 +132,7 @@ class DvaProjectBuilder {
   }
 
   /// 表单
-  String formTemp(DvaKey key) {
+  String formTemp(VadKey key) {
     String str = '<!--error-->';
     switch (key.formType) {
       case FormType.string:
@@ -177,7 +177,7 @@ class DvaProjectBuilder {
   }
 
   /// 表格内容
-  String tableTemp(DvaKey key) {
+  String tableTemp(VadKey key) {
     String str = '<!--error-->';
     switch (key.tableType) {
       case TableType.string:
@@ -202,21 +202,21 @@ class DvaProjectBuilder {
   }
 
   /// 默认值
-  String defaultValueTemp(DvaKey key) {
+  String defaultValueTemp(VadKey key) {
     return '###:${key.value},\n    '
         .replaceAll('@@@', key.description)
         .replaceAll('###', key.key);
   }
 
   /// 规则
-  String rulesTemp(DvaKey key) {
+  String rulesTemp(VadKey key) {
     return '###:[{ required: true, message: "必填", trigger: "blur" }],\n    '
         .replaceAll('@@@', key.description)
         .replaceAll('###', key.key);
   }
 
   /// 提交
-  String sumitTemp(DvaKey key) {
+  String sumitTemp(VadKey key) {
     return '';
   }
 }

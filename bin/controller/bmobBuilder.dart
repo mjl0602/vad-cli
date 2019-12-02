@@ -1,21 +1,21 @@
-import '../model/dvaConfig.dart';
-import '../model/dvaKey.dart';
-import '../model/dvaProject.dart';
+import '../model/vadConfig.dart';
+import '../model/vadKey.dart';
+import '../model/vadProject.dart';
 import '../utils/path.dart';
 import '../utils/type.dart';
 import 'builder.dart';
 
 /// Bmob的builder，使用一个不同的template
-class BmobProjectBuilder extends DvaProjectBuilder {
+class BmobProjectBuilder extends VadProjectBuilder {
   BmobProjectBuilder(
-    DvaConfig config,
-    DvaProject project,
+    VadConfig config,
+    VadProject project,
   ) : super(
           config,
           project,
         );
   @override
-  String sumitTemp(DvaKey key) {
+  String sumitTemp(VadKey key) {
     String str = '';
     switch (key.submitType) {
       case SubmitType.string:
