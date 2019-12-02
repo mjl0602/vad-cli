@@ -1,4 +1,5 @@
-import '../model/vadConfig.dart';
+
+import '../config/vadConfig.dart';
 import '../model/vadKey.dart';
 import '../model/vadProject.dart';
 import '../utils/path.dart';

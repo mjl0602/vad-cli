@@ -58,7 +58,6 @@ class VadConfig {
     if (!file.existsSync()) {
       throw '没有找到config文件,读取配置失败\n你可以使用 vad config 命令来初始化一个config';
     } else {
-      
       print('配置读取完成');
       return VadConfig.fromJson(json.decode(file.readAsStringSync()));
     }

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import '../model/vadConfig.dart';
+import '../config/vadConfig.dart';
 import '../model/vadKey.dart';
 import '../model/vadProject.dart';
 import '../model/vadTable.dart';
