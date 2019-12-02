@@ -8,11 +8,11 @@
 ```shell
 git clone https://github.com/mjl0602/vad-cli.git
 cd vad-cli
-pub global activate --source path ./;
+pub global activate --source path ./
 ```
 
 # 命令
 ## vad config
 ## vad init
-## vad build user
 ## vad build all
+## vad build user
