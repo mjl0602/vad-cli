@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 
+import 'controller/axiosBuilder.dart';
 import 'controller/bmobBuilder.dart';
 import 'controller/builder.dart';
 import 'config/vadConfig.dart';
@@ -85,6 +86,11 @@ VadProjectBuilder builderOfType(String type, VadConfig config) {
     );
   } else if (type == 'bmob') {
     return BmobProjectBuilder(
+      config,
+      VadProject.fromPath(Uri.parse(config.dataPath)),
+    );
+  } else if (type == 'axios') {
+    return AxiosBuilder(
       config,
       VadProject.fromPath(Uri.parse(config.dataPath)),
     );
