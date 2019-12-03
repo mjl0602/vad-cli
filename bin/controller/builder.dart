@@ -54,12 +54,23 @@ class VadProjectBuilder {
     // 创建页面结构并写入mixin,并依赖到api类的父类
     var mixinContent = File.fromUri(mixinTemplate).readAsStringSync();
 
+    /// TODO: Bug
+    /// 不知道为啥这里如果使用两个文件关联，依赖会有问题，会多一个 [../]
+    var relationPath = path.relative(
+      api.path,
+      from: Uri.parse(config.pagePath).resolve('basic/').path,
+    );
+    print('----------');
+    print(api.path);
+    print(relationPath);
+    print(mixinPath.path);
+    print('----------');
     File.fromUri(mixinPath)
       ..createSync(recursive: true)
       ..writeAsStringSync(
         mixinContent.replaceAll(
           '##dataSourcePath##',
-          path.relative(api.path, from: mixinPath.path),
+          relationPath,
         ),
       );
   }

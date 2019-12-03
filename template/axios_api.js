@@ -1,28 +1,35 @@
 import request from "@/utils/request";
 
-import Source from "../utils/dataSource.js";
+import Source from "./super/dataSource.js";
 
 export default class DataSource extends Source {
   // 默认的内容
-  static defaultObject = {
+  defaultObject = {
     /** property */
   };
 
   // 表单规则
-  static rules = {
+  rules = {
     /** rules */
   };
 
   // 查询全部
-  static all(q) {
-    return request({
-      url: "/##tableName##",
+  async all(query = { pageSize: 20, page: 1 }) {
+    let res = await request({
+      url: `/##tableName##`,
       method: "get",
+      params: {
+        skip: (query.page - 1) * query.pageSize,
+        range: query.pageSize,
+      },
     });
+    return {
+      data: res.data.data,
+      total: res.data.count || 99,
+    };
   }
-
   // 上传修改
-  static edit(obj) {
+  edit(obj) {
     console.log("修改666", obj);
     return request({
       url: `/##tableName##/${obj.id}`,
@@ -32,7 +39,7 @@ export default class DataSource extends Source {
   }
 
   // 添加
-  static add(obj) {
+  add(obj) {
     return request({
       url: "/##tableName##",
       method: "post",
@@ -41,7 +48,7 @@ export default class DataSource extends Source {
   }
 
   // 通过id删除
-  static deleteObj(obj) {
+  deleteObj(obj) {
     return request({
       url: `/##tableName##/${obj.id}`,
       method: "delete",

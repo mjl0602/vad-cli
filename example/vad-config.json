@@ -1,0 +1,7 @@
+{
+   "type": "normal",
+   "name": "Vad-Cli Project",
+   "apiPath": "./src/vad-api/",
+   "pagePath": "./src/vad-pages/",
+   "dataPath": "./src/vad-data/"
+}
