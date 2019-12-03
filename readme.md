@@ -18,6 +18,15 @@ cd vad-cli
 pub global activate --source path ./
 ```
 
+# dart2native
+
+```bash
+# mac
+dart2native bin/main.dart -o build/vad-cli-mac
+# win
+dart2native bin/main.dart -o build/vad-cli-win
+```
+
 # 命令
 ## vad config
 ## vad init
