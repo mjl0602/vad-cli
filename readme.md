@@ -4,12 +4,12 @@
 使用dart语言编写的vue-admin代码生成器，简称Vad-Cli
 
 # TODO
-- [] 确定bmob的独立config
-- [] bmob的Json生成
-- [] bmob的init函数生成
-- [] 路由的覆盖与生成
-- [] 检查当前项目是否是vue admin项目
-- [] vue admin整体模板载入
+- [ ] 确定bmob的独立config
+- [ ] bmob的Json生成
+- [ ] bmob的init函数生成
+- [ ] 路由的覆盖与生成
+- [ ] 检查当前项目是否是vue admin项目
+- [ ] vue admin整体模板载入
 # 安装
 
 ```shell
