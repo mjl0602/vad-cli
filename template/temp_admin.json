@@ -1,18 +1,27 @@
 {
-    "roles": "角色",
-    "update": {
-      "type": "string",
-      "formType": "date",
-      "submitType": "string",
-      "defaultValue":"23135",
-      "description": "更新日期"
-    },
-    "name": {
-      "type": "string",
-      "formType": "date",
-      "submitType": "string",
-      "defaultValue":"23135",
-      "description": "NNNNN"
-    }
-  }
-  
+  "avatar": {
+    "type": "image",
+    "formType": "file",
+    "defaultValue": "''",
+    "description": "头像"
+  },
+  "name": {
+    "defaultValue": "'管理员'",
+    "description": "名称"
+  },
+  "account": "用户名",
+  "password": {
+    "type": "string",
+    "formType": "string",
+    "submitType": "string",
+    "defaultValue": "''",
+    "description": "密码"
+  },
+  "roles": {
+    "type": "tagArray",
+    "formType": "stringArray",
+    "defaultValue": "[]",
+    "description": "权限"
+  },
+  "introduction": "描述"
+}
