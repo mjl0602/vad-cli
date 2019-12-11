@@ -148,9 +148,8 @@ class VadProjectBuilder {
     switch (key.formType) {
       case FormType.string:
         str = '''
-    <el-form-item label="@@@" prop="###">
-      <el-input v-model="row.###" placeHolder="请输入@@@"/>
-    </el-form-item>''';
+    <el-input v-model="row.###" placeHolder="请输入@@@"/>
+      ''';
         break;
       case FormType.date:
         str = '''
@@ -183,7 +182,21 @@ class VadProjectBuilder {
       :picker-options="datePickOption">
     </el-date-picker>''';
         break;
+      case FormType.stringArray:
+        str = '''
+    <el-checkbox-group v-model="row.###">
+      <el-checkbox label="superadmin" key="superadmin"></el-checkbox>
+      <el-checkbox label="admin"></el-checkbox>
+      <el-checkbox label="editor"></el-checkbox>
+    </el-checkbox-group>
+          ''';
+        break;
     }
+    str = '''
+    <el-form-item label="@@@" prop="###">
+      $str
+    </el-form-item>
+    ''';
     return str.replaceAll('@@@', key.description).replaceAll('###', key.key);
   }
 
@@ -206,6 +219,17 @@ class VadProjectBuilder {
         {{new Date(scope.row.###).toLocaleString()}}
       </template>
     </el-table-column>
+        ''';
+        break;
+      case TableType.tagArray:
+        str = '''
+    <el-table-column label="@@@" align="center">
+        <template slot-scope="scope">
+          <div v-for="text in scope.row.###" style="margin:4px;">
+            <el-tag>{{text}}</el-tag>
+          </div>
+        </template>
+      </el-table-column>
         ''';
         break;
     }

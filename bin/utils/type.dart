@@ -6,6 +6,7 @@ enum TableType {
   // time,
   // date,
   dateTime,
+  tagArray,
 }
 
 ///
@@ -16,6 +17,7 @@ enum FormType {
   date,
   time,
   dateTime,
+  stringArray,
 }
 
 ///
@@ -33,6 +35,8 @@ TableType tableTypeOfStr(String str) {
     return TableType.string;
   } else if (str == 'dateTime') {
     return TableType.dateTime;
+  } else if (str == 'tagArray') {
+    return TableType.tagArray;
   }
   return TableType.string;
 }
@@ -46,6 +50,8 @@ FormType formTypeOfStr(String str) {
     return FormType.time;
   } else if (str == 'dateTime') {
     return FormType.dateTime;
+  } else if (str == 'stringArray') {
+    return FormType.stringArray;
   }
   return FormType.string;
 }

@@ -3,7 +3,7 @@ import Source from "./super/dataSource.js";
 /**
  * 增删查改等处理
  */
-
+var tableName = "##tableName##";
 export default class DataSource extends Source {
   // 默认的内容
   defaultObject = {
