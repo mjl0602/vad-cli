@@ -77,7 +77,6 @@ onCommand(String command) {
 
 /// 通过Type获取builder
 /// TODO: 增加更多builder类型
-/// TODO: 通过Config读取Type
 VadProjectBuilder builderOfType(String type, VadConfig config) {
   if (type == 'standard') {
     return VadProjectBuilder(

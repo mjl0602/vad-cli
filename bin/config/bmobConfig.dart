@@ -5,13 +5,13 @@ class BmobConfig extends VadConfig {
   BmobConfig(
     this.bmobAppId,
     this.bmobKey,
-    String type,
+    // String type,
     String name,
     String apiPath,
     String dataPath,
     String pagePath,
   ) : super(
-          type: type,
+          // type: type,
           name: name,
           apiPath: apiPath,
           dataPath: dataPath,

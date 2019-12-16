@@ -31,16 +31,17 @@ class VadTable {
       var value = safeMap[key];
       if (value.string != null) {
         list.add(VadKey(
-          key: key,
-          description: value.string,
+          key,
+          value.string,
           value: '""',
         ));
       } else if (value.map != null) {
         var config = SafeMap(value.map);
         list.add(VadKey(
-          key: key,
-          description: config['description'].value ?? '??',
+          key,
+          config['description'].value ?? '??',
           value: config['defaultValue'].value ?? '??',
+          property: config['property'].value,
           tableType: tableTypeOfStr(config['type'].string),
           formType: formTypeOfStr(config['formType'].string),
           submitType: submitTypeOfStr(config['submitType'].string),

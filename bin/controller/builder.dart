@@ -237,13 +237,16 @@ class VadProjectBuilder {
         break;
     }
     str = '''
-    <el-table-column label="@@@" align="center">
+    <el-table-column label="@@@" align="center" &&&>
       <template slot-scope="scope">
         $str
       </template>
     </el-table-column>
     ''';
-    return str.replaceAll('@@@', key.description).replaceAll('###', key.key);
+    return str
+        .replaceAll('@@@', key.description)
+        .replaceAll('###', key.key)
+        .replaceAll('&&&', key.property ?? '');
   }
 
   /// 默认值

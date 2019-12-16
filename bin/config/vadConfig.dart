@@ -5,7 +5,7 @@ import '../utils/safeMap.dart';
 
 class VadConfig {
   /// 项目类型
-  final String type;
+  // final String type;
 
   /// 项目名
   final String name;
@@ -20,7 +20,7 @@ class VadConfig {
   final String pagePath;
 
   const VadConfig({
-    this.type,
+    // this.type,
     this.name,
     this.apiPath,
     this.dataPath,
@@ -29,7 +29,7 @@ class VadConfig {
 
   VadConfig.fromJson(Map<String, dynamic> map)
       : this(
-          type: SafeMap(map)['type'].string,
+          // type: SafeMap(map)['type'].string,
           name: SafeMap(map)['name'].string,
           apiPath: SafeMap(map)['apiPath'].string,
           pagePath: SafeMap(map)['pagePath'].string,
@@ -38,7 +38,7 @@ class VadConfig {
 
   const VadConfig.defaultConfig()
       : this(
-          type: 'normal',
+          // type: 'normal',
           name: 'Vad-Cli Project',
           apiPath: './src/vad-api/',
           pagePath: './src/vad-pages/',
@@ -46,7 +46,7 @@ class VadConfig {
         );
 
   Map<String, dynamic> get map => {
-        'type': type,
+        // 'type': type,
         'name': name,
         'apiPath': apiPath,
         'pagePath': pagePath,
