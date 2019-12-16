@@ -28,10 +28,12 @@ dart2native bin/main.dart -o build/vad-cli-win
 ```
 
 # 命令
-## vad config
-## vad init
-## vad build all
-## vad build user
+- vad config
+- vad init
+- vad build
+- vad build (-m bmob)
+- vad build (-m axios)
+- vad build admin
 
 # 目录
 ```bash
