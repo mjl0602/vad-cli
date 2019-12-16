@@ -1,6 +1,6 @@
 import 'vadConfig.dart';
 
-// TODO: 未完成
+// TODO: 未完成Config的读取等操作
 class BmobConfig extends VadConfig {
   BmobConfig(
     this.bmobAppId,
