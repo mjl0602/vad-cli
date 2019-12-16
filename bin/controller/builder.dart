@@ -184,12 +184,21 @@ class VadProjectBuilder {
         break;
       case FormType.stringArray:
         str = '''
-    <el-checkbox-group v-model="row.###">
-      <el-checkbox label="superadmin" key="superadmin"></el-checkbox>
-      <el-checkbox label="admin"></el-checkbox>
-      <el-checkbox label="editor"></el-checkbox>
+    <el-checkbox-group v-model="row.###" style="width:0px;">
+      <el-checkbox label="superadmin" key="superadmin" style="margin:0;"></el-checkbox>
+      <el-checkbox label="admin" key="admin" style="margin:0;"></el-checkbox>
+      <el-checkbox label="editor" key="editor" style="margin:0;"></el-checkbox>
     </el-checkbox-group>
           ''';
+        break;
+      case FormType.boolean:
+        str = '''
+    <el-switch
+      v-model="row.###"
+      active-color="#13ce66"
+      inactive-color="#9b9b9b">
+    </el-switch>
+        ''';
         break;
     }
     str = '''
@@ -205,34 +214,35 @@ class VadProjectBuilder {
     String str = '<!--error-->';
     switch (key.tableType) {
       case TableType.string:
-        str = '''
-    <el-table-column label="@@@" align="center">
-      <template slot-scope="scope">
-        {{scope.row.###}}
-      </template>
-    </el-table-column>''';
+        str = '{{scope.row.###}}';
         break;
       case TableType.dateTime:
-        str = '''
-    <el-table-column label="@@@" align="center">
-      <template slot-scope="scope">
-        {{new Date(scope.row.###).toLocaleString()}}
-      </template>
-    </el-table-column>
-        ''';
+        str = '{{new Date(scope.row.###).toLocaleString()}}';
         break;
       case TableType.tagArray:
-        str = '''
-    <el-table-column label="@@@" align="center">
-        <template slot-scope="scope">
-          <div v-for="text in scope.row.###" style="margin:4px;">
-            <el-tag>{{text}}</el-tag>
-          </div>
-        </template>
-      </el-table-column>
-        ''';
+        str = '''<div v-for="text in scope.row.###" style="margin:4px;">
+          <el-tag>{{text}}</el-tag>
+        </div>''';
+        break;
+      case TableType.boolean:
+        str = '''<el-switch
+          disabled
+          v-model="scope.row.###"
+          active-color="#13ce66"
+          inactive-color="#9b9b9b">
+        </el-switch>''';
+        break;
+      case TableType.image:
+        str = '<img style="height:66px;" :src="scope.row.###">';
         break;
     }
+    str = '''
+    <el-table-column label="@@@" align="center">
+      <template slot-scope="scope">
+        $str
+      </template>
+    </el-table-column>
+    ''';
     return str.replaceAll('@@@', key.description).replaceAll('###', key.key);
   }
 

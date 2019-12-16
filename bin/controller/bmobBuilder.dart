@@ -1,4 +1,3 @@
-
 import '../config/vadConfig.dart';
 import '../model/vadKey.dart';
 import '../model/vadProject.dart';
@@ -30,6 +29,9 @@ class BmobProjectBuilder extends VadProjectBuilder {
         break;
       case SubmitType.integer:
         str = 'res.set("###", parseInt(obj.###))\n';
+        break;
+      case SubmitType.boolean:
+        str = 'res.set("###", !!obj.###)\n';
         break;
     }
     return str.replaceAll('@@@', key.description).replaceAll('###', key.key);

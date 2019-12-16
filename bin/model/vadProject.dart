@@ -11,7 +11,7 @@ class VadProject {
     this.list,
   });
 
-  // 从路径读取项目
+  /// 从路径读取项目
   static VadProject fromPath(Uri dataPath) {
     Directory directory = Directory.fromUri(dataPath);
     directory.createSync(recursive: true);

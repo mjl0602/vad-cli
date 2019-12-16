@@ -10,18 +10,18 @@ function defaultObjectBuilder() {
  */
 export default class DataSource {
   // 默认的内容
-  static defaultObject = {
+  defaultObject = {
     id: "",
     title: "",
   };
 
   // 表单规则
-  static rules = {
+  rules = {
     title: [{ required: false, message: "必填", trigger: "blur" }],
   };
 
   // 查询全部
-  static all() {
+  all() {
     return asyncCompleter([
       defaultObjectBuilder(),
       defaultObjectBuilder(),
@@ -30,17 +30,17 @@ export default class DataSource {
   }
 
   // 上传修改
-  static edit(obj) {
+  edit(obj) {
     return asyncCompleter("修改结果");
   }
 
   // 添加
-  static add(obj) {
+  add(obj) {
     return asyncCompleter("添加结果");
   }
 
   // 通过id删除
-  static deleteObj(obj) {
+  deleteObj(obj) {
     return asyncCompleter("删除结果");
   }
 }

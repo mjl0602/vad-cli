@@ -5,6 +5,8 @@ enum TableType {
   string,
   // time,
   // date,
+  boolean,
+  image,
   dateTime,
   tagArray,
 }
@@ -15,6 +17,7 @@ enum TableType {
 enum FormType {
   string,
   date,
+  boolean,
   time,
   dateTime,
   stringArray,
@@ -28,6 +31,7 @@ enum SubmitType {
   date,
   float,
   integer,
+  boolean,
 }
 
 TableType tableTypeOfStr(String str) {
@@ -37,6 +41,10 @@ TableType tableTypeOfStr(String str) {
     return TableType.dateTime;
   } else if (str == 'tagArray') {
     return TableType.tagArray;
+  } else if (str == 'bool') {
+    return TableType.boolean;
+  } else if (str == 'image') {
+    return TableType.image;
   }
   return TableType.string;
 }
@@ -52,6 +60,8 @@ FormType formTypeOfStr(String str) {
     return FormType.dateTime;
   } else if (str == 'stringArray') {
     return FormType.stringArray;
+  } else if (str == 'bool') {
+    return FormType.boolean;
   }
   return FormType.string;
 }
@@ -65,6 +75,8 @@ SubmitType submitTypeOfStr(String str) {
     return SubmitType.float;
   } else if (str == 'integer') {
     return SubmitType.integer;
+  } else if (str == 'bool') {
+    return SubmitType.boolean;
   }
   return SubmitType.string;
 }
