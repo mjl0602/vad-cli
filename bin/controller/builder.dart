@@ -269,8 +269,5 @@ class VadProjectBuilder {
   }
 }
 
-/// TODO: JSON生成工具
-class VadResourceBuilder {}
-
 /// TODO: 路由生成工具
 class VadRouteBuilder {}

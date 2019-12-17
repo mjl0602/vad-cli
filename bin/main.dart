@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 
+import 'config/bmobConfig.dart';
 import 'controller/axiosBuilder.dart';
 import 'controller/bmobBuilder.dart';
 import 'controller/builder.dart';
@@ -46,10 +47,10 @@ main(List<String> args) {
 }
 
 onCommand(String command) {
-  String type = _argResults['mode'];
+  String mode = _argResults['mode'];
   String target = _argResults['data'];
   var file = File.fromUri(shellPath.resolve('vad-config.json'));
-  VadConfig config = VadConfig.defaultConfig();
+  VadConfig config = defaultConfigOfType(mode);
 
   if (command == 'config') {
     file.createSync();
@@ -60,10 +61,10 @@ onCommand(String command) {
     return;
   }
   print('读取配置...');
-  config = VadConfig.fromFile(file);
+  config = configOfType(mode, file);
   print(JsonEncoder.withIndent('   ').convert(config.map));
 
-  VadProjectBuilder project = builderOfType(type, config);
+  VadProjectBuilder project = builderOfType(mode, config);
 
   // 指令
   if (command == 'init') {
@@ -95,5 +96,25 @@ VadProjectBuilder builderOfType(String type, VadConfig config) {
     );
   } else {
     throw '没有找到指定编辑模式: $type';
+  }
+}
+
+VadConfig configOfType(String type, File file) {
+  if (type == 'standard') {
+    return VadConfig.fromFile(file);
+  } else if (type == 'bmob') {
+    return BmobConfig.fromFile(file);
+  } else {
+    throw '没有找到指定配置文件: $type';
+  }
+}
+
+VadConfig defaultConfigOfType(String type) {
+  if (type == 'standard') {
+    return VadConfig.defaultConfig();
+  } else if (type == 'bmob') {
+    return BmobConfig.defaultConfig();
+  } else {
+    throw '没有找到指定配置文件: $type';
   }
 }
