@@ -62,7 +62,7 @@ export default {
       this.listLoading = true;
       try {
         let res = await this.source.all(this.query);
-        if (res.hasProperty("total")) {
+        if (res.hasOwnProperty("total")) {
           this.list = res.data;
           this.query.total = res.total;
         } else {
