@@ -40,7 +40,7 @@ class VadTable {
         list.add(VadKey(
           key,
           config['description'].value ?? '??',
-          value: config['defaultValue'].value ?? '??',
+          value: config['defaultValue'].value ?? '""',
           property: config['property'].value,
           tableType: tableTypeOfStr(config['type'].string),
           formType: formTypeOfStr(config['formType'].string),
