@@ -18,6 +18,14 @@ cd vad-cli
 pub global activate --source path ./
 ```
 
+有时候只有安装dart才有pub包管理（而不是仅仅安装flutter就可以）
+
+你需要
+```
+brew install dart
+```
+
+总之要先安装pub
 # dart2native
 
 ```bash
