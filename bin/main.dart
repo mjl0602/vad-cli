@@ -104,6 +104,8 @@ VadConfig configOfType(String type, File file) {
     return VadConfig.fromFile(file);
   } else if (type == 'bmob') {
     return BmobConfig.fromFile(file);
+  } else if (type == 'axios') {
+    return VadConfig.fromFile(file);
   } else {
     throw '没有找到指定配置文件: $type';
   }
@@ -114,7 +116,9 @@ VadConfig defaultConfigOfType(String type) {
     return VadConfig.defaultConfig();
   } else if (type == 'bmob') {
     return BmobConfig.defaultConfig();
+  } else if (type == 'axios') {
+    return VadConfig.defaultConfig();
   } else {
-    throw '没有找到指定配置文件: $type';
+    throw '没有找到指定默认配置文件: $type';
   }
 }
