@@ -13,7 +13,7 @@ enum TableType {
 
 ///
 /// 枚举：在表单中显示的样式
-///
+/// TODO:增加长文本格式
 enum FormType {
   string,
   date,
