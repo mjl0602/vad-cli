@@ -1,0 +1,50 @@
+{
+    "avatar": {
+        "description": "头像",
+        "defaultValue": "''",
+        "type": "",
+        "formType": "",
+        "submitType": "",
+        "property": null
+    },
+    "name": {
+        "description": "名称",
+        "defaultValue": "'管理员'",
+        "type": "",
+        "formType": "",
+        "submitType": "",
+        "property": null
+    },
+    "account": {
+        "description": "用户名",
+        "defaultValue": "\"\"",
+        "type": "",
+        "formType": "",
+        "submitType": "",
+        "property": ""
+    },
+    "password": {
+        "description": "密码",
+        "defaultValue": "''",
+        "type": "",
+        "formType": "",
+        "submitType": "",
+        "property": null
+    },
+    "roles": {
+        "description": "权限",
+        "defaultValue": "[]",
+        "type": "",
+        "formType": "",
+        "submitType": "",
+        "property": null
+    },
+    "introduction": {
+        "description": "描述",
+        "defaultValue": "\"\"",
+        "type": "",
+        "formType": "",
+        "submitType": "",
+        "property": ""
+    }
+}

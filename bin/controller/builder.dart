@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as path;
 import '../config/vadConfig.dart';
@@ -5,6 +6,7 @@ import '../model/vadKey.dart';
 import '../model/vadProject.dart';
 import '../model/vadTable.dart';
 import '../utils/path.dart';
+import '../utils/safeMap.dart';
 import '../utils/type.dart';
 
 /// @@@ 将会被替换为description
@@ -37,9 +39,26 @@ class VadProjectBuilder {
     this.project,
   ) : assert(project != null);
 
+  /// 修正json
+  /// 把一个简写的json改为完整json
+  void completeFile(String fileName) {
+    var file = File.fromUri(
+      Uri.parse(config.dataPath).resolve('${fileName}.json'),
+    );
+    print('读取文件：${file.path}');
+    Map<String, dynamic> map = json.decode(file.readAsStringSync());
+    var table = VadTable.formJson(map, fileName);
+    var jsonContent = table.build((VadKey vadKey) {
+      var content = json.encode(vadKey.jsonMap);
+      return '"${vadKey.key}":$content,';
+    });
+    // print(jsonContent);
+    file.writeAsStringSync('{$jsonContent}');
+  }
+
   /// 初始化项目文件夹结构
   /// 其中mixin需要关联dataSource
-  initProject() {
+  void initProject() {
     // 创建数据源结构，用于举例子
     File.fromUri(exampleJson)
       ..createSync(recursive: true)
@@ -76,7 +95,7 @@ class VadProjectBuilder {
   }
 
   /// 保存项目
-  saveProject([String target]) {
+  void saveProject([String target]) {
     /// 生成主要文件
     for (var table in project.list) {
       // 生成数据
@@ -113,7 +132,7 @@ class VadProjectBuilder {
   }
 
   // 保存文件，如果存在，会将旧文件重命名为old后继续保存
-  savaFile(String content, Uri path, String fileName) {
+  void savaFile(String content, Uri path, String fileName) {
     var file = File.fromUri(path.resolve('${fileName}Manage.vue'));
     print('生成:${file.path}');
     file.createSync(recursive: true);

@@ -8,6 +8,7 @@ import 'controller/axiosBuilder.dart';
 import 'controller/bmobBuilder.dart';
 import 'controller/builder.dart';
 import 'config/vadConfig.dart';
+import 'model/vadKey.dart';
 import 'model/vadProject.dart';
 import 'utils/help.dart';
 import 'utils/path.dart'; // 使用其中两个类ArgParser和ArgResults
@@ -64,13 +65,15 @@ onCommand(String command) {
   config = configOfType(mode, file);
   print(JsonEncoder.withIndent('   ').convert(config.map));
 
-  VadProjectBuilder project = builderOfType(mode, config);
+  VadProjectBuilder projectBuilder = builderOfType(mode, config);
 
   // 指令
   if (command == 'init') {
-    project.initProject();
+    projectBuilder.initProject();
   } else if (command == 'build') {
-    project.saveProject(target);
+    projectBuilder.saveProject(target);
+  } else if (command == 'complete') {
+    projectBuilder.completeFile(target);
   } else {
     throw '无法识别命令: $command';
   }
