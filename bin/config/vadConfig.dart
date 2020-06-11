@@ -16,6 +16,8 @@ class VadConfig {
   /// 数据源的路径，可以为空
   final String dataPath;
 
+  Uri get dataUri => Uri.parse(dataPath);
+
   /// 页面的路径，可以为空
   final String pagePath;
 

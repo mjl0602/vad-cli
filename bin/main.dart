@@ -11,11 +11,12 @@ import 'config/vadConfig.dart';
 import 'model/vadKey.dart';
 import 'model/vadProject.dart';
 import 'utils/help.dart';
-import 'utils/path.dart'; // 使用其中两个类ArgParser和ArgResults
+import 'utils/path.dart';
+import 'web/server.dart'; // 使用其中两个类ArgParser和ArgResults
 
 ArgResults _argResults; // 声明ArgResults类型的顶级变量，保存解析的参数结果
 
-main(List<String> args) {
+main(List<String> args) async {
   // 创建ArgParser的实例，同时指定需要输入的参数
   final ArgParser argParser = new ArgParser()
     ..addOption(
@@ -44,10 +45,10 @@ main(List<String> args) {
   }
   var command = _argResults.arguments.first;
   print('执行命令:$command');
-  onCommand(command);
+  await onBuildCommand(command);
 }
 
-onCommand(String command) {
+Future onBuildCommand(String command) async {
   String mode = _argResults['mode'];
   String target = _argResults['data'];
   var file = File.fromUri(shellPath.resolve('vad-config.json'));
@@ -74,6 +75,8 @@ onCommand(String command) {
     projectBuilder.saveProject(target);
   } else if (command == 'complete') {
     projectBuilder.completeFile(target);
+  } else if (command == 'serve') {
+    await VadServer.start(config);
   } else {
     throw '无法识别命令: $command';
   }

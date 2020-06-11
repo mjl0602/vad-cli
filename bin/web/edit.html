@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>编辑器</title>
+    <script src="https://unpkg.com/vue"></script>
+    <!-- 引入样式 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <el-table
+        :data="current.property"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+      >
+        <!-- 内容 -->
+        <el-table-column label="Key" align="center" width="140">
+          <template slot-scope="scope">{{scope.row.key}}</template>
+        </el-table-column>
+        <el-table-column label="数据类型" align="center" min-width="140">
+          <template slot-scope="scope">{{scope.row.content.type}}</template>
+        </el-table-column>
+        <el-table-column label="表单类型" align="center" min-width="140">
+          <template slot-scope="scope">{{scope.row.content.formType}}</template>
+        </el-table-column>
+        <el-table-column label="提交类型" align="center" min-width="140">
+          <template slot-scope="scope"
+            >{{scope.row.content.submitType}}</template
+          >
+        </el-table-column>
+        <el-table-column label="描述" align="center" width="140">
+          <template slot-scope="scope"
+            >{{scope.row.content.introduction}}</template
+          >
+        </el-table-column>
+        <el-table-column label="默认值" align="center" width="140">
+          <template slot-scope="scope"
+            >{{scope.row.content.defaultValue}}</template
+          >
+        </el-table-column>
+        <!-- <el-table-column label="总数据" align="center" width="140">
+          <template slot-scope="scope">{{scope.row.content}}</template>
+        </el-table-column> -->
+      </el-table>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          current: {
+            name: "",
+            property: [],
+          },
+        },
+        async created() {
+          let res = await axios.get("http://localhost:8045/edit/admin");
+          console.log(res);
+          this.current.name = "admin";
+          let list = [];
+          for (const key in res.data) {
+            if (res.data.hasOwnProperty(key)) {
+              const element = res.data[key];
+              list.push({
+                key: key,
+                content: element,
+              });
+            }
+          }
+          this.current.property = list;
+          console.log(this.current);
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+  <style>
+    body {
+      background-color: #f5f5f4;
+      padding: 40px 60px;
+    }
+  </style>
+</html>
