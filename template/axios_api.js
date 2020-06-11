@@ -23,16 +23,19 @@ export default class DataSource extends Source {
   //       range: query.pageSize,
   //     },
   //   });
+  //   if(res.data.count==undefined) return res.data.data;
   //   return {
   //     data: res.data.data,
-  //     total: res.data.count || 99,
+  //     total: res.data.count,
   //   };
   // }
   // // 上传修改
   // edit(obj) {
-  //   console.log("修改666", obj);
+  //   console.log("修改", obj);
+  //   let id = obj.id;
+  //   delete obj.id;
   //   return request({
-  //     url: `/##tableName##/${obj.id}`,
+  //     url: `/##tableName##/${id}`,
   //     method: "put",
   //     data: obj,
   //   });
@@ -40,6 +43,7 @@ export default class DataSource extends Source {
 
   // // 添加
   // add(obj) {
+  //   delete obj.id;
   //   return request({
   //     url: "/##tableName##",
   //     method: "post",
