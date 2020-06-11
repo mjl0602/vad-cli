@@ -25,6 +25,11 @@
         <el-table-column label="Key" align="center" width="140">
           <template slot-scope="scope">{{scope.row.key}}</template>
         </el-table-column>
+        <el-table-column label="描述" align="center" width="140">
+          <template slot-scope="scope"
+            >{{scope.row.content.description}}</template
+          >
+        </el-table-column>
         <el-table-column label="数据类型" align="center" min-width="140">
           <template slot-scope="scope">{{scope.row.content.type}}</template>
         </el-table-column>
@@ -36,12 +41,10 @@
             >{{scope.row.content.submitType}}</template
           >
         </el-table-column>
-        <el-table-column label="描述" align="center" width="140">
-          <template slot-scope="scope"
-            >{{scope.row.content.introduction}}</template
-          >
+        <el-table-column label="属性" align="center" width="140">
+          <template slot-scope="scope">{{scope.row.content.property}}</template>
         </el-table-column>
-        <el-table-column label="默认值" align="center" width="140">
+        <el-table-column label="默认值" align="center" min-width="140">
           <template slot-scope="scope"
             >{{scope.row.content.defaultValue}}</template
           >
