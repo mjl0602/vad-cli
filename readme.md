@@ -36,12 +36,13 @@ dart2native bin/main.dart -o build/vad-cli-win
 ```
 
 # 命令
-- vad config
-- vad init
-- vad build
-- vad build (-m bmob)
-- vad build (-m axios)
-- vad build admin
+- vad config 初始化vad-config.json文件
+- vad init 初始化基础文件结构，生成一个admin.json供测试
+- vad build -d admin 用普通模式创建admin相关的文件
+- vad build -m axios 用axios模式创建全部相关的文件
+- vad build -d all -m axios 用axios模式创建全部相关的文件
+- vad build -d admin -m axios 用axios模式创建admin相关的文件
+- vad complete -d admin 完善admin的json格式为完整格式
 
 # 目录
 ```bash

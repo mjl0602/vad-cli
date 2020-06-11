@@ -5,7 +5,7 @@ import 'vadKey.dart';
 class VadTable {
   /// TODO: 路由创建
 
-  /// TODO:权限,用于路由创建
+  /// TODO: 权限,用于路由创建
   // final List<String> permission;
 
   /// TODO: 有同样父级的table在边栏合并在一起

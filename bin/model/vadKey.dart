@@ -1,6 +1,5 @@
 import '../utils/type.dart';
 
-
 /// 解析单个key的描述
 /// 必须的参数：
 /// key: 键(例如[password])
@@ -26,10 +25,19 @@ class VadKey {
   VadKey(
     this.key,
     this.description, {
-    this.value,
-    this.property,
+    this.value: "null",
+    this.property: '',
     this.tableType: TableType.string,
     this.formType: FormType.string,
     this.submitType: SubmitType.string,
   });
+
+  Map<String, dynamic> get jsonMap => {
+        "description": description,
+        "defaultValue": value,
+        "type": "",
+        "formType": "",
+        "submitType": "",
+        "property": property,
+      };
 }
