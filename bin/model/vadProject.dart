@@ -24,6 +24,7 @@ class VadProject {
         VadTable table = VadTable.formJson(
           json.decode(file.readAsStringSync()),
           path.basenameWithoutExtension(file.path),
+          file.uri,
         );
         tableList.add(table);
       }

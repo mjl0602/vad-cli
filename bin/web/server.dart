@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import '../config/vadConfig.dart';
@@ -5,12 +6,15 @@ import '../model/vadProject.dart';
 
 class VadServer {
   static Future start(VadConfig config) async {
+    var editPagePath = Platform.script.resolve('../bin/web/edit.html').path;
+
     /// 打开页面
     final ProcessResult result = Process.runSync(
       'open',
-      ['/Users/majialun/Desktop/code/vad-cli/bin/web/edit.html'],
+      [editPagePath],
       runInShell: true,
     );
+
     print('Server Shell ExitCode: ${result.exitCode}');
     print('Server Shell Result: ${result.stdout}');
 
@@ -49,10 +53,8 @@ class VadServer {
       } else if (methods == 'POST' && path.startsWith('/edit/')) {
         var key = path.split('/').last;
         var filePath = config.dataUri.resolve('$key.json');
-        var raw = await request.toList();
-        print(raw);
-        var str = String.fromCharCodes(raw.first);
-        print(str);
+        // 取出Post的Data
+        var data = await _dataOf(request);
         request.response
           ..write('OK')
           ..close();
@@ -71,4 +73,11 @@ class VadServer {
     }
     return;
   }
+}
+
+Future<Map<String, dynamic>> _dataOf(HttpRequest request) async {
+  var raw = await request.toList();
+  print(raw);
+  var str = String.fromCharCodes(raw.first);
+  return json.decode(str);
 }

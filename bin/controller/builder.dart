@@ -17,6 +17,11 @@ class VadProjectBuilder {
   final VadProject project;
   final VadConfig config;
 
+  VadProjectBuilder(
+    this.config,
+    this.project,
+  ) : assert(project != null);
+
   // 模板路径
   Uri get jsonTemplate => templatePath.resolve('temp_admin.json');
   Uri get dataSourceTemplate => templatePath.resolve('temp_dataSource.js');
@@ -34,11 +39,6 @@ class VadProjectBuilder {
   /// mixin的路径
   Uri get mixinPath => Uri.parse(config.pagePath).resolve('basic/mixin.js');
 
-  VadProjectBuilder(
-    this.config,
-    this.project,
-  ) : assert(project != null);
-
   /// 修正json
   /// 把一个简写的json改为完整json
   void completeFile(String fileName) {
@@ -47,7 +47,7 @@ class VadProjectBuilder {
     );
     print('读取文件：${file.path}');
     Map<String, dynamic> map = json.decode(file.readAsStringSync());
-    var table = VadTable.formJson(map, fileName);
+    var table = VadTable.formJson(map, fileName, file.uri);
     var jsonContent = table.list.map<String>((VadKey vadKey) {
       var content = JsonEncoder.withIndent('  ').convert(vadKey.jsonMap);
       return '"${vadKey.key}":$content';

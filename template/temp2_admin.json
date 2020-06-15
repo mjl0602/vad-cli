@@ -1,15 +1,58 @@
 {
-  "_key": "admin",
-  "_name": "管理员",
-  "_routePath": "@/",
-  "_content": [
+  "vad-type": "full-json",
+  "key": "admin",
+  "name": "管理员",
+  "routePath": "@/system",
+  "query": [
     {
       "key": "name",
+      "type": "input",
+      "placeholder": "搜索姓名"
+    },
+    {
+      "key": "permission",
+      "type": "select",
+      "placeholder": "选择权限",
+      "list": []
+    }
+  ],
+  "actions": [
+    {
+      "title": "修改",
+      "method": "edit"
+    },
+    {
+      "title": "删除",
+      "method": "delete"
+    }
+  ],
+  "content": [
+    {
+      "key": "name",
+      "columnKey": "userInfo",
       "type": "string",
       "formType": "string",
       "submitType": "string",
       "defaultValue": "''",
       "description": "名称"
+    },
+    {
+      "key": "account",
+      "columnKey": "login",
+      "type": "string",
+      "formType": "string",
+      "submitType": "string",
+      "defaultValue": "''",
+      "description": "用户名"
+    },
+    {
+      "key": "password",
+      "columnKey": "login",
+      "type": "string",
+      "formType": "string",
+      "submitType": "string",
+      "defaultValue": "''",
+      "description": "密码"
     }
   ]
 }

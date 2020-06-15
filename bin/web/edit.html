@@ -15,11 +15,9 @@
   <body>
     <div id="app">
       <div class="top-tools">
-        <el-input
-          class="item"
-          v-model="input"
-          placeholder="请输入内容"
-        ></el-input>
+        <el-select class="item" v-model="input">
+          <el-option v-for="key in keys" :key="key" :label="key" :value="key"></el-radio-button>
+        </el-select>
         <el-button class="item" type="primary" @click="load">读取</el-button>
         <el-button class="item" type="primary" @click="postTest"
           >POST</el-button
@@ -70,6 +68,7 @@
         el: "#app",
         data: {
           input: "",
+          keys: ["user", "admin", "order"],
           current: {
             name: "",
             property: [],
@@ -114,7 +113,7 @@
   <style>
     body {
       background-color: #f5f5f4;
-      padding: 40px 60px;
+      padding: 8px 60px;
     }
     .top-tools {
       display: flex;
