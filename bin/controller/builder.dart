@@ -48,12 +48,11 @@ class VadProjectBuilder {
     print('读取文件：${file.path}');
     Map<String, dynamic> map = json.decode(file.readAsStringSync());
     var table = VadTable.formJson(map, fileName);
-    var jsonContent = table.build((VadKey vadKey) {
-      var content = json.encode(vadKey.jsonMap);
-      return '"${vadKey.key}":$content,';
-    });
-    // print(jsonContent);
-    file.writeAsStringSync('{$jsonContent}');
+    var jsonContent = table.list.map<String>((VadKey vadKey) {
+      var content = JsonEncoder.withIndent('  ').convert(vadKey.jsonMap);
+      return '"${vadKey.key}":$content';
+    }).join(',\n');
+    file.writeAsStringSync('{\n$jsonContent}\n');
   }
 
   /// 初始化项目文件夹结构

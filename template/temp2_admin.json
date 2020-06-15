@@ -1,0 +1,15 @@
+{
+  "_key": "admin",
+  "_name": "管理员",
+  "_routePath": "@/",
+  "_content": [
+    {
+      "key": "name",
+      "type": "string",
+      "formType": "string",
+      "submitType": "string",
+      "defaultValue": "''",
+      "description": "名称"
+    }
+  ]
+}

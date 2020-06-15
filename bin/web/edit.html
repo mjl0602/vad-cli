@@ -21,6 +21,9 @@
           placeholder="请输入内容"
         ></el-input>
         <el-button class="item" type="primary" @click="load">读取</el-button>
+        <el-button class="item" type="primary" @click="postTest"
+          >POST</el-button
+        >
       </div>
       <el-table
         :data="current.property"
@@ -91,6 +94,18 @@
             }
             this.current.property = list;
             console.log(this.current);
+          },
+          async postTest() {
+            let key = this.input;
+            let res = await axios({
+              url: `http://localhost:8045/edit/${key}`,
+              method: "post",
+              headers: { "Content-Type": "application/json;charset=UTF-8" },
+              data: {
+                name: "0123456789",
+              },
+            });
+            console.log(res);
           },
         },
       });

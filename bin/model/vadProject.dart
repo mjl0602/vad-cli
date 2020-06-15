@@ -6,8 +6,10 @@ import 'vadTable.dart';
 class VadProject {
   /// 下属table
   final List<VadTable> list;
+  final Uri dataPath;
 
   VadProject({
+    this.dataPath,
     this.list,
   });
 
@@ -27,6 +29,7 @@ class VadProject {
       }
     }
     return VadProject(
+      dataPath: dataPath,
       list: tableList,
     );
   }

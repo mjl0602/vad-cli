@@ -35,9 +35,9 @@ class VadKey {
   Map<String, dynamic> get jsonMap => {
         "description": description,
         "defaultValue": value,
-        "type": "",
-        "formType": "",
-        "submitType": "",
+        "type": strOfTableType(tableType),
+        "formType": strOfFormType(formType),
+        "submitType": strOfSubmitType(submitType),
         "property": property,
       };
 }
