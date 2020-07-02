@@ -34,7 +34,19 @@ dart2native bin/main.dart -o build/vad-cli-mac
 # win
 dart2native bin/main.dart -o build/vad-cli-win
 ```
+# dart2js
 
+> 有bug，无法使用
+
+生成
+```bash
+# dart2js
+dart2js ./bin/main-js.dart --out=./build/dart2js/index.js --minify
+```
+测试
+```
+node ./build/dart2js/index.js
+```
 # 命令
 - vad config 初始化vad-config.json文件
 - vad init 初始化基础文件结构，生成一个admin.json供测试

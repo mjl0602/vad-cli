@@ -6,4 +6,4 @@ dependencies:
 executables:
   vad: main
 # 一些命令备注
-#  pub global activate --source path $(pwd)
+#  pub global activate --source path ./
