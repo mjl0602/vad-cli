@@ -54,6 +54,8 @@ export default {
     };
   },
   created() {
+    // 绑定一个闭包，获取输入数据，来做表单验证
+    this.source._valueGetter = () => this.row;
     this.queryAll();
   },
   methods: {
@@ -104,23 +106,27 @@ export default {
           await this.source.edit(this.row);
           this.notifySuccess("修改成功", `${this.objStr}修改成功`);
         }
+        this.addDialogVisible = false;
+        await this.queryAll();
       } catch (error) {
         console.error(error);
-        this.notifyError("失败", "操作发生错误，数据提交失败.");
+        this.notifyError("失败", "操作发生错误，数据提交失败");
       }
-
-      this.addDialogVisible = false;
-      await this.queryAll();
     },
     // 删除
     async deleteRow(row) {
-      await this.$confirm("删除操作将不能撤销, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "error",
-      });
-      await this.source.deleteObj(row);
-      this.notifySuccess("删除成功", `${this.objStr}已被删除`);
+      try {
+        await this.$confirm("删除操作将不能撤销, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "error",
+        });
+        await this.source.deleteObj(row);
+        this.notifySuccess("删除成功", `${this.objStr}已被删除`);
+      } catch (error) {
+        console.error(error);
+        this.notifyError("失败", "操作发生错误，数据提交失败");
+      }
       await this.queryAll();
     },
     handleSizeChange(size) {
@@ -162,19 +168,19 @@ export default {
         duration: 2000,
       });
     },
-
-    needInterface() {
+    markTodo() {
       this.$notify({
         title: "等待开发",
-        message: "需要后台接口",
+        message: "TODO: 还未开发完成",
         type: "warning",
         duration: 2000,
       });
     },
-
-    fakePromise() {
+    delay(timeout = 1000) {
       return new Promise((r, e) => {
-        r();
+        setTimeout(() => {
+          r();
+        }, timeout);
       });
     },
   },

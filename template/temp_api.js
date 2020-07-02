@@ -10,7 +10,7 @@ export default class DataSource extends Source {
     /** property */
   };
 
-  // 表单规则
+  // 表单规则(如果要获取已经输入的数据，请使用 this.data 获取数据)
   rules = {
     /** rules */
   };
