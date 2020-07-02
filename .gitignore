@@ -1,0 +1,19 @@
+*.pdf
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+*.pdf
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
