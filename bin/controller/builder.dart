@@ -97,8 +97,11 @@ class VadProjectBuilder {
   void saveProject([String target]) {
     /// 生成主要文件
     for (var table in project.list) {
+      if (table.camelName == '') {
+        return;
+      }
       // 生成数据
-      var dataUri = Uri.parse(config.apiPath).resolve('${table.name}.js');
+      var dataUri = Uri.parse(config.apiPath).resolve('${table.camelName}.js');
       var dataFile = File.fromUri(dataUri);
       // 如果指定文件
       if (target != null && target != 'all') {
@@ -125,7 +128,7 @@ class VadProjectBuilder {
           ),
         ),
         shellPath.resolve(config.pagePath),
-        table.name,
+        table.camelName,
       );
     }
   }
