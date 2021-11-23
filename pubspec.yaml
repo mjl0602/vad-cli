@@ -1,5 +1,7 @@
 name: vad
 version: 0.0.1+1
+environment:
+  sdk: '>=2.10.0 <3.0.0'
 dependencies:
   args: any
   path: ^1.6.4
