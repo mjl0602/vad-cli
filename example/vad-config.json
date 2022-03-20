@@ -1,9 +1,5 @@
 {
-   "bmob": {
-      "appid": null,
-      "key": null
-   },
-   "name": "Vad-Cli Bmob Project",
+   "name": "Vad-Cli Project",
    "apiPath": "./src/vad-api/",
    "pagePath": "./src/vad-pages/",
    "dataPath": "./src/vad-data/"

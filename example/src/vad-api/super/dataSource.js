@@ -15,7 +15,15 @@ export default class DataSource {
     title: "",
   };
 
-  // 表单规则
+  // 读取正在输入的数据，用于表单校验
+  _valueGetter;
+
+  // 已输入的数据的Getter
+  get data() {
+    return this._valueGetter();
+  }
+
+  // 表单规则(如果要获取已经输入的数据，请使用 this.data 获取数据)
   rules = {
     title: [{ required: false, message: "必填", trigger: "blur" }],
   };
