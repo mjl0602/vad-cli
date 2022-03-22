@@ -14,7 +14,7 @@
       <!-- 内容 -->
           <el-table-column label="头像" align="center" >
       <template slot-scope="scope">
-        {{scope.row.avatar}}
+        <img style="height:66px;" :src="scope.row.avatar">
       </template>
     </el-table-column>
     
@@ -38,7 +38,9 @@
     
     <el-table-column label="权限" align="center" >
       <template slot-scope="scope">
-        {{scope.row.roles}}
+        <div v-for="text in scope.row.roles" style="margin:4px;">
+          <el-tag>{{text}}</el-tag>
+        </div>
       </template>
     </el-table-column>
     
@@ -100,8 +102,12 @@
     </el-form-item>
     
     <el-form-item label="权限" prop="roles">
-          <el-input v-model="row.roles" placeHolder="请输入权限"/>
-      
+          <el-checkbox-group v-model="row.roles" style="width:0px;">
+      <el-checkbox label="superadmin" key="superadmin" style="margin:0;"></el-checkbox>
+      <el-checkbox label="admin" key="admin" style="margin:0;"></el-checkbox>
+      <el-checkbox label="editor" key="editor" style="margin:0;"></el-checkbox>
+    </el-checkbox-group>
+          
     </el-form-item>
     
     <el-form-item label="描述" prop="introduction">

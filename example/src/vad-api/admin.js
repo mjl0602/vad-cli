@@ -1,8 +1,6 @@
-import Source from "./super/dataSource.js";
+import request from "@/utils/request";
 
-/**
- * 增删查改等处理
- */
+import Source from "./super/dataSource.js";
 
 export default class DataSource extends Source {
   // 默认的内容
@@ -36,21 +34,50 @@ roles:[{ required: true, message: "必填", trigger: "blur" }],
 introduction:[{ required: true, message: "必填", trigger: "blur" }],
     
   };
-  /**
-   * 【查询全部】
-   * 如果返回数组对象，则页面不翻页，
-   * 如果返回{total:88,data:[]}对象，
-   * 则页面出现翻页标签。
-   *
-   * */
-  //   async all(q) {}
 
-  //   // 上传修改
-  //   async edit(obj) {}
+  // 查询全部
+  // async all(query = { pageSize: 20, page: 1 }) {
+  //   let res = await request({
+  //     url: `/admin`,
+  //     method: "get",
+  //     params: {
+  //       skip: (query.page - 1) * query.pageSize,
+  //       range: query.pageSize,
+  //     },
+  //   });
+  //   if(res.data.count==undefined) return res.data.data;
+  //   return {
+  //     data: res.data.data,
+  //     total: res.data.count,
+  //   };
+  // }
+  // // 上传修改
+  // edit(obj) {
+  //   console.log("修改", obj);
+  //   let id = obj.id;
+  //   delete obj.id;
+  //   return request({
+  //     url: `/admin/${id}`,
+  //     method: "put",
+  //     data: obj,
+  //   });
+  // }
 
-  //   // 添加
-  //   async add(obj) {}
+  // // 添加
+  // add(obj) {
+  //   delete obj.id;
+  //   return request({
+  //     url: "/admin",
+  //     method: "post",
+  //     data: obj,
+  //   });
+  // }
 
-  //   // 删除
-  //   async deleteObj(obj) {}
+  // // 通过id删除
+  // deleteObj(obj) {
+  //   return request({
+  //     url: `/admin/${obj.id}`,
+  //     method: "delete",
+  //   });
+  // }
 }

@@ -21,6 +21,7 @@ class VadProject {
     List<VadTable> tableList = [];
     for (var file in list) {
       if (file is File) {
+        print('read:${file.path}');
         VadTable table = VadTable.formJson(
           json.decode(file.readAsStringSync()),
           path.basenameWithoutExtension(file.path),
