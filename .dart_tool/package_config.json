@@ -3,15 +3,15 @@
   "packages": [
     {
       "name": "args",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/args-1.5.2",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.dartlang.org/args-2.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "path",
-      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.flutter-io.cn/path-1.6.4",
+      "rootUri": "file:///Users/majialun/.pub-cache/hosted/pub.dartlang.org/path-1.8.1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "vad",
@@ -20,7 +20,7 @@
       "languageVersion": "2.10"
     }
   ],
-  "generated": "2022-03-22T04:52:14.600613Z",
+  "generated": "2022-05-11T01:53:15.288675Z",
   "generator": "pub",
-  "generatorVersion": "2.16.1"
+  "generatorVersion": "2.16.2"
 }
