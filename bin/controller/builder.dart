@@ -222,15 +222,14 @@ class VadProjectBuilder {
       v-model="row.###"
       active-color="#13ce66"
       inactive-color="#9b9b9b">
-    </el-switch> ''';
+    </el-switch>''';
         break;
     }
     str = '''
   <el-form-item label="@@@" prop="###">
 $str
-  </el-form-item>
-    ''';
-    str = str.split('\n').map((e) => '${' ' * 4}$e').join('\n');
+  </el-form-item>''';
+    str = str.split('\n').map((e) => '${' ' * 6}$e').join('\n');
     return str.replaceAll('@@@', key.description).replaceAll('###', key.key);
   }
 
@@ -266,8 +265,7 @@ $str
       <template slot-scope="scope">
         $str
       </template>
-    </el-table-column>
-    ''';
+    </el-table-column>''';
     str = str.split('\n').map((e) => '${' ' * 2}$e').join('\n');
     return str
         .replaceAll('@@@', key.description)

@@ -26,7 +26,10 @@
     </div>
     <!-- 添加/删除数据的弹窗 -->
     <el-dialog v-model="tb.addDialogVisible" :title="actions.dialogTitle">
+      <el-form :model="tb.row" :rules="tb.source.rules" label-position="left" label-width="100px" style="width: 400px; 
+        margin-left: 50px">
 <!-- form insert -->
+      </el-form>
       <template #footer class="dialog-footer">
         <el-button type="primary" @click="actions.submit()">提交</el-button>
       </template>
@@ -35,7 +38,8 @@
 </template>
 <script lang="ts" setup>
 import ##TableName##Query, { ##TableName##Model, ##TableName##QueryParmas } from '@/vad-api/##tableName##';
-import { ElButton, ElButtonGroup, ElTable, ElTableColumn, ElDialog, ElForm, ElFormItem, ElInput, ElPagination } from 'element-plus'
+import { ElTable, ElTableColumn, ElPagination, ElButton, ElButtonGroup, ElDialog } from 'element-plus'
+import { ElForm, ElFormItem, ElInput, ElCheckboxGroup, ElCheckbox, ElSwitch, ElDatePicker, ElTimePicker, ElSelect } from 'element-plus'
 import { Edit } from '@element-plus/icons-vue'
 import refTable from './basic/basic-table';
 
