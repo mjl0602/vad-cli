@@ -1,0 +1,49 @@
+<template>
+  <div class="app-container">
+    <div class="filter-container-flex">
+      <el-button class="filter-item" type="primary" :icon="Edit" @click="actions.add()">添加</el-button>
+    </div>
+    <el-table v-loading="tb.listLoading" :data="tb.list" element-loading-text="Loading" border fit
+      highlight-current-row>
+      <!-- 内容 -->
+<!-- table insert -->
+      <!-- 操作 -->
+      <el-table-column class-name="status-col" label="操作" align="center" width="220">
+        <template #default="scope">
+          <el-button-group>
+            <el-button type="primary" @click="actions.edit(scope.row)" size="mini">修改</el-button>
+            <el-button type="danger" @click="actions.deleteRow(scope.row)" size="mini">删除</el-button>
+          </el-button-group>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!-- 翻页 -->
+    <div class="pagination-container" v-if="tb.total">
+      <el-pagination v-model:current-page="tb.query.pageNum" :page-sizes="[5, 10, 20, 30, 50]"
+        v-model:page-size="tb.query.pageSize" :total="tb.total" background
+        layout="total, sizes, prev, pager, next, jumper" @size-change="(v) => actions.sizeChange(v)"
+        @current-change="(v) => actions.pageChange(v)" />
+    </div>
+    <!-- 添加/删除数据的弹窗 -->
+    <el-dialog v-model="tb.addDialogVisible" :title="actions.dialogTitle">
+<!-- form insert -->
+      <template #footer class="dialog-footer">
+        <el-button type="primary" @click="actions.submit()">提交</el-button>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+<script lang="ts" setup>
+import ##TableName##Query, { ##TableName##Model, ##TableName##QueryParmas } from '@/vad-api/##tableName##';
+import { ElButton, ElButtonGroup, ElTable, ElTableColumn, ElDialog, ElForm, ElFormItem, ElInput, ElPagination } from 'element-plus'
+import { Edit } from '@element-plus/icons-vue'
+import refTable from './basic/basic-table';
+
+/** 创建表格，与表格相关操作 */
+const [tb, actions] = refTable<##TableName##Model, ##TableName##QueryParmas>(
+  new ##TableName##Query(),
+  {
+    // searchString: '',
+  }
+);
+</script>

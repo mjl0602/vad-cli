@@ -83,7 +83,7 @@ node ./build/dart2js/index.js
 │   │   │   ├── admin.js
 │   │   │   └── super
 │   │   │       └── dataSource.js
-│   │   ├── vad-data
+│   │   ├── vad-raw-json
 │   │   │   └── admin.json
 │   │   └── vad-pages
 │   │       ├── adminManage.vue

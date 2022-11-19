@@ -8,6 +8,7 @@ import 'controller/axiosBuilder.dart';
 import 'controller/bmobBuilder.dart';
 import 'controller/builder.dart';
 import 'config/vadConfig.dart';
+import 'controller/vue3Builder.dart';
 import 'model/vadKey.dart';
 import 'model/vadProject.dart';
 import 'utils/help.dart';
@@ -100,6 +101,11 @@ VadProjectBuilder builderOfType(String type, VadConfig config) {
       config,
       VadProject.fromPath(Uri.parse(config.dataPath)),
     );
+  } else if (type == 'vue3') {
+    return Vue3Builder(
+      config,
+      VadProject.fromPath(Uri.parse(config.dataPath)),
+    );
   } else {
     throw '没有找到指定编辑模式: $type';
   }
@@ -112,8 +118,10 @@ VadConfig configOfType(String type, File file) {
     return BmobConfig.fromFile(file);
   } else if (type == 'axios') {
     return VadConfig.fromFile(file);
+  } else if (type == 'vue3') {
+    return VadConfig.fromFile(file);
   } else {
-    throw '没有找到指定配置文件: $type';
+    throw '没有找到指定配置文件(configOfType): $type';
   }
 }
 
@@ -124,7 +132,9 @@ VadConfig defaultConfigOfType(String type) {
     return BmobConfig.defaultConfig();
   } else if (type == 'axios') {
     return VadConfig.defaultConfig();
+  } else if (type == 'vue3') {
+    return VadConfig.defaultConfig();
   } else {
-    throw '没有找到指定默认配置文件: $type';
+    throw '没有找到指定默认配置文件(defaultConfigOfType): $type';
   }
 }

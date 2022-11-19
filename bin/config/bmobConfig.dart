@@ -41,7 +41,7 @@ class BmobConfig extends VadConfig {
           name: 'Vad-Cli Bmob Project',
           apiPath: './src/vad-api/',
           pagePath: './src/vad-pages/',
-          dataPath: './src/vad-data/',
+          dataPath: './src/vad-raw-json/',
         );
 
   Map<String, dynamic> get map => {

@@ -39,6 +39,8 @@ class VadProjectBuilder {
   /// mixin的路径
   Uri get mixinPath => Uri.parse(config.pagePath).resolve('basic/mixin.js');
 
+  String get langType => 'js';
+
   /// 修正json
   /// 把一个简写的json改为完整json
   void completeFile(String fileName) {
@@ -101,7 +103,9 @@ class VadProjectBuilder {
         return;
       }
       // 生成数据
-      var dataUri = Uri.parse(config.apiPath).resolve('${table.camelName}.js');
+      var dataUri = Uri.parse(config.apiPath).resolve(
+        '${table.camelName}.$langType',
+      );
       var dataFile = File.fromUri(dataUri);
       // 如果指定文件
       if (target != null && target != 'all') {
@@ -156,6 +160,10 @@ class VadProjectBuilder {
         .readAsStringSync()
         .replaceAll('##filename##', table.name)
         .replaceAll("##tableName##", table.name)
+        .replaceAll(
+          "##TableName##",
+          table.name.replaceRange(0, 1, table.name[0].toUpperCase()),
+        )
         .replaceAll("<!-- table insert -->", tableContent)
         .replaceAll("<!-- form insert -->", formContent)
         .replaceAll("/** property */", defaultObjectContent)
@@ -169,8 +177,7 @@ class VadProjectBuilder {
     switch (key.formType) {
       case FormType.string:
         str = '''
-    <el-input v-model="row.###" placeHolder="请输入@@@"/>
-      ''';
+    <el-input v-model="row.###" placeHolder="请输入@@@"/>''';
         break;
       case FormType.date:
         str = '''
@@ -181,8 +188,7 @@ class VadProjectBuilder {
       placeholder="选择@@@"
       :picker-options="datePickOption"
       >
-    </el-date-picker>
-        ''';
+    </el-date-picker>''';
         break;
       case FormType.time:
         str = '''
@@ -190,8 +196,7 @@ class VadProjectBuilder {
       arrow-control
       v-model="row.###"
       placeholder="选择@@@">
-    </el-time-picker>
-    ''';
+    </el-time-picker>''';
         break;
       case FormType.dateTime:
         str = '''
@@ -209,8 +214,7 @@ class VadProjectBuilder {
       <el-checkbox label="superadmin" key="superadmin" style="margin:0;"></el-checkbox>
       <el-checkbox label="admin" key="admin" style="margin:0;"></el-checkbox>
       <el-checkbox label="editor" key="editor" style="margin:0;"></el-checkbox>
-    </el-checkbox-group>
-          ''';
+    </el-checkbox-group> ''';
         break;
       case FormType.boolean:
         str = '''
@@ -218,15 +222,15 @@ class VadProjectBuilder {
       v-model="row.###"
       active-color="#13ce66"
       inactive-color="#9b9b9b">
-    </el-switch>
-        ''';
+    </el-switch> ''';
         break;
     }
     str = '''
-    <el-form-item label="@@@" prop="###">
-      $str
-    </el-form-item>
+  <el-form-item label="@@@" prop="###">
+$str
+  </el-form-item>
     ''';
+    str = str.split('\n').map((e) => '${' ' * 4}$e').join('\n');
     return str.replaceAll('@@@', key.description).replaceAll('###', key.key);
   }
 
@@ -264,6 +268,7 @@ class VadProjectBuilder {
       </template>
     </el-table-column>
     ''';
+    str = str.split('\n').map((e) => '${' ' * 2}$e').join('\n');
     return str
         .replaceAll('@@@', key.description)
         .replaceAll('###', key.key)
@@ -272,14 +277,14 @@ class VadProjectBuilder {
 
   /// 默认值
   String defaultValueTemp(VadKey key) {
-    return '###:${key.value},\n    '
+    return '      ###:${key.value},'
         .replaceAll('@@@', key.description)
         .replaceAll('###', key.key);
   }
 
   /// 规则
   String rulesTemp(VadKey key) {
-    return '###:[{ required: true, message: "必填", trigger: "blur" }],\n    '
+    return '      ###:[{ required: true, message: "必填", trigger: "blur" }],'
         .replaceAll('@@@', key.description)
         .replaceAll('###', key.key);
   }
