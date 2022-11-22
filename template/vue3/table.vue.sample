@@ -38,8 +38,6 @@
 </template>
 <script lang="ts" setup>
 import ##TableName##Query, { ##TableName##Model, ##TableName##QueryParmas } from '@/vad-api/##tableName##';
-import { ElTable, ElTableColumn, ElPagination, ElButton, ElButtonGroup, ElDialog } from 'element-plus'
-import { ElForm, ElFormItem, ElInput, ElCheckboxGroup, ElCheckbox, ElSwitch, ElDatePicker, ElTimePicker, ElSelect } from 'element-plus'
 import { Edit } from '@element-plus/icons-vue'
 import refTable from './basic/basic-table';
 
