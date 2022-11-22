@@ -2,7 +2,7 @@ import Queryable, { BasicQueryParams } from "./source/queryable";
 
 /** 模型 */
 export interface ##TableName##Model {
-/** interface */
+  /** interface */
 }
 
 /** 搜索条件 */
@@ -26,7 +26,7 @@ export default class ##TableName##Query extends Queryable <##TableName##Model, #
   // 默认的内容
   get defaultObject(): ##TableName##Model {
     return {
-/** property */
+      /** property */
     };
   }
 
@@ -41,7 +41,7 @@ export default class ##TableName##Query extends Queryable <##TableName##Model, #
   // 表单规则
   get rules() {
     return {
-/** rules */
+      /** rules */
     }
   };
 

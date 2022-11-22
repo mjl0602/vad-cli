@@ -29,7 +29,7 @@ class VadTable {
 
   /// 通过闭包创建一行，闭包会反复执行，并以`\n`连接
   String build(String Function(VadKey) builder) =>
-      list.map<String>(builder).join('\n');
+      list.map<String>(builder).join('\n').trimLeft();
 
   /// TODO: 直接在这里读文件还靠谱点，因为一个table对应一个文件
   static VadTable formFile(Uri dataUri) => null;
