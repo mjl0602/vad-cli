@@ -64,7 +64,7 @@ class Vue3Builder extends VadProjectBuilder {
           "string[]",
         ][key.tableType.index];
         return '  /** ${key.description} */\n'
-            '  ${key.key}: $tsType';
+            '  ${key.key}?: $tsType';
       }),
     );
   }
