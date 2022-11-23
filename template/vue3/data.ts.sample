@@ -1,4 +1,6 @@
 import Queryable, { BasicQueryParams } from "./source/queryable";
+import http from '@/config/axios'
+const { request } = http;
 
 /** 模型 */
 export interface ##TableName##Model {
@@ -55,7 +57,7 @@ export default class ##TableName##Query extends Queryable <##TableName##Model, #
   //       pageSize: query.pageSize,
   //     },
   //   });
-  //   if(res.data.count==undefined) return res.data.data;
+  //   if(res.data.count==undefined) return res.data;
   //   return {
   //     data: res.data.data,
   //     total: res.data.count,
