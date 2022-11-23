@@ -76,6 +76,7 @@ class BasicTable<T, E extends BasicQueryParams> {
         this.v.list = res.data;
         this.v.total = res.total;
       } else {
+        if (!Array.isArray(res)) throw '返回值不是数组'
         this.v.list = res as T[];
       }
       console.log("查询数据:", this.v.list);
