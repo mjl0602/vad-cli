@@ -56,12 +56,21 @@ class VadConfig {
       };
 
   /// 创建默认配置
-  static VadConfig fromFile(File file) {
+  static VadConfig fromFile(File file, String tag) {
     if (!file.existsSync()) {
       throw '没有找到config文件,读取配置失败\n你可以使用 vad config 命令来初始化一个config';
     } else {
-      print('配置读取完成');
-      return VadConfig.fromJson(json.decode(file.readAsStringSync()));
+      print('配置读取完成 ${tag}');
+      var jsonConfig = json.decode(file.readAsStringSync());
+      var map = SafeMap(jsonConfig);
+      var config = map['override'][tag];
+      if (config.map.isNotEmpty) {
+        print('已经按tag重写配置：${tag}');
+        jsonConfig = config.map;
+      } else {
+        print('未匹配tag：${tag}');
+      }
+      return VadConfig.fromJson(jsonConfig);
     }
   }
 

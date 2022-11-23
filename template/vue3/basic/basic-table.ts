@@ -1,4 +1,4 @@
-import Queryable, { BasicQueryParams, PagedData } from "@/vad-api/source/queryable";
+import Queryable, { BasicQueryParams, PagedData } from "../vad-api/source/queryable";
 import { onMounted, ref, Ref } from "vue";
 import { ElNotification, ElMessageBox } from 'element-plus'
 
