@@ -53,8 +53,8 @@ export default class ##TableName##Query extends Queryable <##TableName##Model, #
   //     url: `/##tableName##`,
   //     method: "get",
   //     params: {
-  //       pageNum: query.pageNum,
-  //       pageSize: query.pageSize,
+  //       pageNum: params.pageNum,
+  //       pageSize: params.pageSize,
   //     },
   //   });
   //   if(res.data.count==undefined) return res.data;
