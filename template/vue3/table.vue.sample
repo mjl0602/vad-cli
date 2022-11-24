@@ -21,8 +21,8 @@
     <div class="pagination-container" v-if="tb.total">
       <el-pagination v-model:current-page="tb.query.pageNum" :page-sizes="[5, 10, 20, 30, 50]"
         v-model:page-size="tb.query.pageSize" :total="tb.total" background
-        layout="total, sizes, prev, pager, next, jumper" @size-change="(v) => actions.sizeChange(v)"
-        @current-change="(v) => actions.pageChange(v)" />
+        layout="total, sizes, prev, pager, next, jumper" @size-change="(v: number) => actions.sizeChange(v)"
+        @current-change="(v: number) => actions.pageChange(v)" />
     </div>
     <!-- 添加/删除数据的弹窗 -->
     <el-dialog v-model="tb.addDialogVisible" :title="actions.dialogTitle">
