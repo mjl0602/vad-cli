@@ -59,7 +59,7 @@ export default class ##TableName##Query extends Queryable <##TableName##Model, #
   //   });
   //   if(res.data.count==undefined) return res.data;
   //   return {
-  //     data: res.data.data,
+  //     data: res.data.rows,
   //     total: res.data.count,
   //   };
   // }
