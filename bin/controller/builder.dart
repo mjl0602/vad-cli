@@ -158,17 +158,17 @@ class VadProjectBuilder {
     /// 替换 vue 内容
     return File.fromUri(tempUri)
         .readAsStringSync()
+        .replaceAll("<!-- table insert -->", tableContent)
+        .replaceAll("<!-- form insert -->", formContent)
+        .replaceAll("/** property */", defaultObjectContent)
+        .replaceAll("/** rules */", rulesContent)
+        .replaceAll("/** edit */", submitContent)
         .replaceAll('##filename##', table.name)
         .replaceAll("##tableName##", table.name)
         .replaceAll(
           "##TableName##",
           table.name.replaceRange(0, 1, table.name[0].toUpperCase()),
-        )
-        .replaceAll("<!-- table insert -->", tableContent)
-        .replaceAll("<!-- form insert -->", formContent)
-        .replaceAll("/** property */", defaultObjectContent)
-        .replaceAll("/** rules */", rulesContent)
-        .replaceAll("/** edit */", submitContent);
+        );
   }
 
   /// 表单
@@ -234,7 +234,7 @@ $str
   }
 
   /// 表格内容
-  String tableTemp(VadKey key) {
+  String tableTemp(VadKey key, [String Function(String) columnBuilder]) {
     String str = '<!--error-->';
     switch (key.tableType) {
       case TableType.string:
@@ -260,7 +260,8 @@ $str
         str = '<img style="height:66px;" :src="scope.row.###">';
         break;
     }
-    str = '''
+    str = columnBuilder?.call(str) ??
+        '''
     <el-table-column label="@@@" align="center" &&&>
       <template slot-scope="scope">
         $str

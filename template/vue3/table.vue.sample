@@ -37,7 +37,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import ##TableName##Query, { ##TableName##Model, ##TableName##QueryParmas } from './vad-api/##tableName##';
+import ##TableName##Query, { ##TableName##Model, ##TableName##QueryParmas, ##TableName##ModelRow } from './vad-api/##tableName##';
 import { Edit } from '@element-plus/icons-vue'
 import refTable from './basic/basic-table';
 

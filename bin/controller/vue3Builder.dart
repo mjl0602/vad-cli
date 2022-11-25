@@ -43,8 +43,15 @@ class Vue3Builder extends VadProjectBuilder {
   }
 
   /// 表格内容
-  String tableTemp(VadKey key) {
-    var content = super.tableTemp(key);
+  String tableTemp(VadKey key, [String Function(String) columnBuilder]) {
+    var content = super.tableTemp(key, (str) {
+      return '''
+    <el-table-column label="@@@" align="center" &&&>
+      <template #default="scope: ##TableName##ModelRow">
+        $str
+      </template>
+    </el-table-column>''';
+    });
     return content.replaceAll('slot-scope=', '#default=');
   }
 

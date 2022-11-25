@@ -7,6 +7,11 @@ export interface ##TableName##Model {
   /** interface */
 }
 
+/** 表格内的对象 */
+export interface ##TableName##ModelRow {
+  row: ##TableName##Model
+}
+
 /** 搜索条件 */
 export interface ##TableName##QueryParmas extends BasicQueryParams {
   
