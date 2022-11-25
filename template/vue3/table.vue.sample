@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container-flex">
-      <el-button class="filter-item" type="primary" :icon="Edit" @click="actions.add()">添加</el-button>
+      <el-button class="filter-item" type="success" :icon="Plus" @click="actions.add()">添加</el-button>
     </div>
     <el-table v-loading="tb.listLoading" :data="tb.list" element-loading-text="Loading" border fit
       highlight-current-row>
@@ -38,7 +38,7 @@
 </template>
 <script lang="ts" setup>
 import ##TableName##Query, { ##TableName##Model, ##TableName##QueryParmas, ##TableName##ModelRow } from './vad-api/##tableName##';
-import { Edit } from '@element-plus/icons-vue'
+import { Plus } from '@element-plus/icons-vue'
 import refTable from './basic/basic-table';
 
 /** 创建表格，与表格相关操作 */
