@@ -76,7 +76,6 @@ class BasicTable<T, E extends BasicQueryParams> {
         this.v.list = res.data;
         this.v.total = res.total;
       } else {
-        if (!Array.isArray(res)) throw '返回值不是数组'
         this.v.list = res as T[];
       }
       console.log("查询数据:", this.v.list);
@@ -104,16 +103,19 @@ class BasicTable<T, E extends BasicQueryParams> {
     this.v.addDialogVisible = true;
   }
   // 提交（增加与修改）
-  async submit(obj = this.v.row) {
+  async submit(obj?: Partial<T>, forceIsNew?: boolean) {
+    if (forceIsNew !== undefined) this.v.isNew = forceIsNew;
     console.log("###submit", obj, this.v.isNew);
+    if (obj!["screenX"] && obj!["screenY"]) obj = undefined;
+    obj = Object.assign({}, obj || this.v.row);
     try {
       if (this.v.isNew) {
         console.log("add");
-        await this.v.source.add(this.v.row);
+        await this.v.source.add(obj);
         this.notifySuccess("新增成功", `成功新增${this.objName}`);
       } else {
         console.log("edit");
-        await this.v.source.edit(this.v.row);
+        await this.v.source.edit(obj);
         this.notifySuccess("修改成功", `${this.objName}修改成功`);
       }
       this.v.addDialogVisible = false;
