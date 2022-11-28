@@ -27,7 +27,7 @@ export default class ##TableName##Query extends Queryable <##TableName##Model, #
 
   /** 对象名称 */
   get objectName(): string {
-    return '数据'
+    // return '数据'
   };
 
   // 默认的内容
