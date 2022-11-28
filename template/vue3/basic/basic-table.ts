@@ -7,6 +7,7 @@ interface TableState<T, E extends BasicQueryParams> {
   list: T[],
   total: number,
   listLoading: boolean,
+  submitLoading: boolean,
   query: E,
   // 添加的Dialog
   addDialogVisible: boolean,
@@ -41,6 +42,7 @@ class BasicTable<T, E extends BasicQueryParams> {
       list: [],
       total: 0,
       listLoading: false,
+      submitLoading: false,
       query: Object.assign(queryParams, {
         pageNum: 1,
         pageSize: 5,
@@ -106,9 +108,10 @@ class BasicTable<T, E extends BasicQueryParams> {
   async submit(obj?: Partial<T>, forceIsNew?: boolean) {
     if (forceIsNew !== undefined) this.v.isNew = forceIsNew;
     console.log("###submit", obj, this.v.isNew);
-    if (obj!["screenX"] && obj!["screenY"]) obj = undefined;
+    if (obj?.["screenX"] && obj?.["screenY"]) obj = undefined;
     obj = Object.assign({}, obj || this.v.row);
     try {
+      this.v.submitLoading = true;
       if (this.v.isNew) {
         console.log("add");
         await this.v.source.add(obj);
@@ -124,6 +127,7 @@ class BasicTable<T, E extends BasicQueryParams> {
       console.error(error);
       this.notifyError("失败", "操作发生错误，数据提交失败");
     }
+    this.v.submitLoading = false;
   }
   // 删除
   async deleteRow(row: T) {
