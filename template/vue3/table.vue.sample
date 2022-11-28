@@ -26,8 +26,8 @@
     </div>
     <!-- 添加/删除数据的弹窗 -->
     <el-dialog v-model="tb.addDialogVisible" :title="actions.dialogTitle">
-      <el-form :disabled="tb.submitLoading" :model="tb.row" :rules="tb.source.rules" label-position="left" label-width="100px" style="width: 400px; 
-        margin-left: 50px">
+      <el-form :disabled="tb.submitLoading" :model="tb.row" :rules="tb.source.rules" label-position="left" label-width="100px" 
+      style="width: 400px; margin-left: 50px">
         <!-- form insert -->
       </el-form>
       <template #footer class="dialog-footer">
