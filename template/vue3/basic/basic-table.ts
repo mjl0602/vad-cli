@@ -43,10 +43,10 @@ class BasicTable<T, E extends BasicQueryParams> {
       total: 0,
       listLoading: false,
       submitLoading: false,
-      query: Object.assign(queryParams, {
+      query: Object.assign({
         pageNum: 1,
         pageSize: 5,
-      }),
+      }, queryParams),
       addDialogVisible: false,
       isNew: false,
       row: {},
