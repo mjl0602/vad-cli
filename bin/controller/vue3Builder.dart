@@ -63,13 +63,17 @@ class Vue3Builder extends VadProjectBuilder {
     return content.replaceAll(
       "/** interface */",
       table.build((key) {
+        var isId = key.key == 'id' ||
+            key.key.endsWith('Id') ||
+            key.key.endsWith('_id');
         var tsType = [
-          "string",
-          "boolean",
-          "string",
-          "Date",
-          "string[]",
-        ][key.tableType.index];
+          "string", // "string",
+          "string", // "date",
+          "boolean", // "bool",
+          "number", // "float",
+          "number", // "integer",
+        ][key.submitType.index];
+        if (isId) tsType = 'number';
         return '  /** ${key.description} */\n'
             '  ${key.key}?: $tsType';
       }),
