@@ -72,6 +72,7 @@ export default class ##TableName##Query extends Queryable <##TableName##Model, #
   // // 上传修改
   // async edit(obj: ##TableName##Model) {
   //   console.log("修改", obj);
+  //   obj = Object.assign({}, obj);
   //   let id = obj.id;
   //   delete obj.id;
   //   return request({
