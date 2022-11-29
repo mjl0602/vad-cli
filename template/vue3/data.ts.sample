@@ -10,6 +10,8 @@ export interface ##TableName##Model {
 /** 表格内的对象 */
 export interface ##TableName##ModelRow {
   row: ##TableName##Model
+  column: any[],
+  $index: number,
 }
 
 /** 搜索条件 */
