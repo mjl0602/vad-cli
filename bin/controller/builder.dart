@@ -177,7 +177,7 @@ class VadProjectBuilder {
     switch (key.formType) {
       case FormType.string:
         str = '''
-    <el-input v-model="row.###" placeHolder="请输入@@@"/>''';
+    <el-input v-model="row.###" placeholder="请输入@@@"/>''';
         break;
       case FormType.date:
         str = '''

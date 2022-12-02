@@ -60,16 +60,16 @@
       <el-form :model="tb.row" :rules="tb.source.rules" label-position="left" label-width="100px" style="width: 400px; 
         margin-left: 50px">
         <el-form-item label="头像" prop="avatar">
-          <el-input v-model="tb.row.avatar" placeHolder="请输入头像"/>
+          <el-input v-model="tb.row.avatar" placeholder="请输入头像"/>
         </el-form-item>
         <el-form-item label="名称" prop="name">
-          <el-input v-model="tb.row.name" placeHolder="请输入名称"/>
+          <el-input v-model="tb.row.name" placeholder="请输入名称"/>
         </el-form-item>
         <el-form-item label="用户名" prop="account">
-          <el-input v-model="tb.row.account" placeHolder="请输入用户名"/>
+          <el-input v-model="tb.row.account" placeholder="请输入用户名"/>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input v-model="tb.row.password" placeHolder="请输入密码"/>
+          <el-input v-model="tb.row.password" placeholder="请输入密码"/>
         </el-form-item>
         <el-form-item label="权限" prop="roles">
           <el-checkbox-group v-model="tb.row.roles" style="width:0px;">
@@ -79,7 +79,7 @@
           </el-checkbox-group> 
         </el-form-item>
         <el-form-item label="描述" prop="introduction">
-          <el-input v-model="tb.row.introduction" placeHolder="请输入描述"/>
+          <el-input v-model="tb.row.introduction" placeholder="请输入描述"/>
         </el-form-item>
       </el-form>
       <template #footer class="dialog-footer">
