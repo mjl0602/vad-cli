@@ -45,7 +45,7 @@ import refTable from './basic/basic-table';
 const [tb, actions] = refTable<##TableName##Model, ##TableName##QueryParmas>(
   new ##TableName##Query(),
   {
-    // searchString: '',
+    // 默认的搜索值
   }
 );
 </script>
