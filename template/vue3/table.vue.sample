@@ -25,7 +25,7 @@
         @current-change="(v: number) => actions.pageChange(v)" />
     </div>
     <!-- 添加/删除数据的弹窗 -->
-    <el-dialog v-model="tb.addDialogVisible" :title="actions.dialogTitle">
+    <el-dialog v-model="tb.addDialogVisible" :title="actions.dialogTitle" @close="tb.isNew = false">
       <el-form :disabled="tb.submitLoading" :model="tb.row" :rules="tb.source.rules" label-position="left" label-width="100px" 
       style="width: 400px; margin-left: 50px">
         <!-- form insert -->
