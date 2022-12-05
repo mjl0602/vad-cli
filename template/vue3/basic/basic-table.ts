@@ -2,7 +2,7 @@ import Queryable, { BasicQueryParams, PagedData } from "../vad-api/source/querya
 import { onMounted, ref, Ref } from "vue";
 import { ElNotification, ElMessageBox } from 'element-plus'
 
-interface TableState<T, E extends BasicQueryParams> {
+interface TableState<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
   // 表格内容
   list: T[],
   total: number,
@@ -15,11 +15,11 @@ interface TableState<T, E extends BasicQueryParams> {
   // 增加使用的对象
   row: Partial<T>,
   rules: { [P in keyof T]?: any },
-  source: Queryable<T, E>,
+  source: F,
 }
 
-class BasicTable<T, E extends BasicQueryParams> {
-  private _ref?: Ref<TableState<T, E>>;
+class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
+  private _ref?: Ref<TableState<T, E, F>>;
 
   private get ref() {
     return this._ref!;
@@ -33,11 +33,11 @@ class BasicTable<T, E extends BasicQueryParams> {
     return this.v.source.objectName;
   }
 
-  static refTable = function <T, E extends BasicQueryParams = any>(
+  static refTable = function <T, E extends BasicQueryParams = any, F extends Queryable<T, E> = any>(
     data: Queryable<T, E>,
     queryParams: E,
-  ): [Ref<TableState<T, E>>, BasicTable<T, E>] {
-    const table = new BasicTable<T, E>();
+  ): [Ref<TableState<T, E, F>>, BasicTable<T, E, F>] {
+    const table = new BasicTable<T, E, F>();
     const finalConfig = {
       list: [],
       total: 0,
@@ -57,7 +57,7 @@ class BasicTable<T, E extends BasicQueryParams> {
       data._valueGetter = () => table.v.row;
       table.queryAll();
     })
-    const tableRef = ref(finalConfig) as Ref<TableState<T, E>>
+    const tableRef = ref(finalConfig) as Ref<TableState<T, E, F>>
     table._ref = tableRef;
     return [
       tableRef,
@@ -129,6 +129,31 @@ class BasicTable<T, E extends BasicQueryParams> {
     }
     this.v.submitLoading = false;
   }
+  async custom(caller: () => Promise<any>, confirm?: { title?: string, msg?: string, action?: string }) {
+    try {
+      if (confirm) {
+        try {
+          await ElMessageBox.confirm(confirm.msg ?? "确定要继续当前操作吗?", confirm.title ?? "提示", {
+            confirmButtonText: confirm.action ?? "继续",
+            cancelButtonText: "取消",
+            type: "info",
+          });
+        } catch (error) {
+          console.error(error);
+          return;
+        }
+      }
+      this.v.listLoading = true;
+      console.log("edit");
+      await caller()
+      this.notifySuccess("修改成功", `${this.objName}修改成功`);
+      await this.queryAll();
+    } catch (error) {
+      console.error(error);
+      this.notifyError("失败", "操作发生错误，数据提交失败");
+    }
+    this.v.listLoading = false;
+  }
   // 删除
   async deleteRow(row: T) {
     try {
@@ -142,12 +167,14 @@ class BasicTable<T, E extends BasicQueryParams> {
         console.error(error);
         return;
       }
+      this.v.submitLoading = true;
       await this.v.source.deleteObj(row);
       this.notifySuccess("删除成功", `${this.objName}已被删除`);
     } catch (error) {
       console.error(error);
       this.notifyError("失败", "操作发生错误，数据提交失败");
     }
+    this.v.submitLoading = false;
     await this.queryAll();
   }
 

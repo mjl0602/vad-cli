@@ -42,7 +42,7 @@ import { Plus } from '@element-plus/icons-vue'
 import refTable from './basic/basic-table';
 
 /** 创建表格，与表格相关操作 */
-const [tb, actions] = refTable<##TableName##Model, ##TableName##QueryParmas>(
+const [tb, actions] = refTable<##TableName##Model, ##TableName##QueryParmas, ##TableName##Query>(
   new ##TableName##Query(),
   {
     // 默认的搜索值
