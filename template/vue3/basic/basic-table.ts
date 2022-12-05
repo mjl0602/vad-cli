@@ -129,9 +129,9 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
     }
     this.v.submitLoading = false;
   }
-  async custom(caller: () => Promise<any>, confirm?: { title?: string, msg?: string, action?: string }) {
+  async act(caller: () => Promise<any>, confirm?: { title?: string, msg?: string, action?: string, success?: string, fail?: string }) {
     try {
-      if (confirm) {
+      if (confirm?.title || confirm?.msg || confirm?.action) {
         try {
           await ElMessageBox.confirm(confirm.msg ?? "确定要继续当前操作吗?", confirm.title ?? "提示", {
             confirmButtonText: confirm.action ?? "继续",
@@ -144,13 +144,12 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
         }
       }
       this.v.listLoading = true;
-      console.log("edit");
       await caller()
-      this.notifySuccess("修改成功", `${this.objName}修改成功`);
+      this.notifySuccess("操作成功", confirm?.success ?? `${this.objName}修改成功`);
       await this.queryAll();
     } catch (error) {
       console.error(error);
-      this.notifyError("失败", "操作发生错误，数据提交失败");
+      this.notifyError("失败", confirm?.fail ?? "操作发生错误，数据提交失败");
     }
     this.v.listLoading = false;
   }
