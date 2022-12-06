@@ -125,6 +125,7 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
       await this.queryAll();
     } catch (error) {
       console.error(error);
+      if (typeof error === 'string') return this.notifyError("失败", error);
       this.notifyError("失败", "操作发生错误，数据提交失败");
     }
     this.v.submitLoading = false;
@@ -149,6 +150,7 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
       await this.queryAll();
     } catch (error) {
       console.error(error);
+      if (typeof error === 'string') return this.notifyError("失败", error);
       this.notifyError("失败", confirm?.fail ?? "操作发生错误，数据提交失败");
     }
     this.v.listLoading = false;
@@ -171,6 +173,7 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
       this.notifySuccess("删除成功", `${this.objName}已被删除`);
     } catch (error) {
       console.error(error);
+      if (typeof error === 'string') return this.notifyError("失败", error);
       this.notifyError("失败", "操作发生错误，数据提交失败");
     }
     this.v.submitLoading = false;
