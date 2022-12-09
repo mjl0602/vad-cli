@@ -28,10 +28,25 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
   private get objName() {
     return this.v.source.objectName;
   }
-
+  /**
+   * 使用数据源来创建一个table对象  
+   * 使用:  
+   * const [tb, actions] = refTable<UserModel, UserQueryParmas, UserQuery>(  
+   *   new UserQuery(),  
+   *   {  
+   *     // 查询参数  
+   *   }  
+   * );  
+   *   
+   * 如果不提供查询参数  
+   * const [tb, actions] = refTable<UserModel, UserQueryParmas, UserQuery>(  
+   *   new UserQuery(),  
+   * );  
+   * 那么不会在onMount时触发source的all方法去请求列表  
+   */
   static refTable = function <T, E extends BasicQueryParams = any, F extends Queryable<T, E> = any>(
     data: F,
-    queryParams: E,
+    queryParams?: E,
   ): [UnwrapNestedRefs<TableState<T, E, F>>, BasicTable<T, E, F>] {
     const table = new BasicTable<T, E, F>();
     const finalConfig: TableState<T, E, F> = {
@@ -49,10 +64,11 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
       rules: {},
       source: data,
     };
-    onMounted(() => {
-      data._valueGetter = () => table.v.row;
-      table.queryAll();
-    })
+    if (!!queryParams)
+      onMounted(() => {
+        data._valueGetter = () => table.v.row;
+        table.queryAll();
+      })
     const tableRef = reactive(finalConfig) as UnwrapNestedRefs<TableState<T, E, F>>
     table._ref = tableRef;
     return [
@@ -150,6 +166,10 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
       this.v.listLoading = false;
     } catch (error) {
       console.error(error);
+      if (typeof error === 'string') {
+        this.notifyError("失败", error);
+        return
+      }
       this.notifyError("失败", confirm?.fail ?? "操作发生错误，数据提交失败");
       this.v.listLoading = false;
       throw error;
@@ -173,6 +193,10 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
       this.notifySuccess("删除成功", `${this.objName}已被删除`);
     } catch (error) {
       console.error(error);
+      if (typeof error === 'string') {
+        this.notifyError("失败", error);
+        return
+      }
       this.notifyError("失败", "操作发生错误，数据提交失败");
     }
     this.v.submitLoading = false;
