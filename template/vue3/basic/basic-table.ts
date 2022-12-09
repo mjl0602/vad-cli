@@ -1,5 +1,5 @@
 import Queryable, { BasicQueryParams, PagedData } from "../vad-api/source/queryable";
-import { onMounted, ref, Ref } from "vue";
+import { onMounted, reactive, UnwrapNestedRefs } from "vue";
 import { ElNotification, ElMessageBox } from 'element-plus'
 
 interface TableState<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
@@ -19,14 +19,10 @@ interface TableState<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
 }
 
 class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
-  private _ref?: Ref<TableState<T, E, F>>;
+  private _ref?: UnwrapNestedRefs<TableState<T, E, F>>;
 
-  private get ref() {
-    return this._ref!;
-  }
-
-  private get v() {
-    return this._ref!.value;
+  private get v(): TableState<T, E, F> {
+    return this._ref as TableState<T, E, F>;
   }
 
   private get objName() {
@@ -34,11 +30,11 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
   }
 
   static refTable = function <T, E extends BasicQueryParams = any, F extends Queryable<T, E> = any>(
-    data: Queryable<T, E>,
+    data: F,
     queryParams: E,
-  ): [Ref<TableState<T, E, F>>, BasicTable<T, E, F>] {
+  ): [UnwrapNestedRefs<TableState<T, E, F>>, BasicTable<T, E, F>] {
     const table = new BasicTable<T, E, F>();
-    const finalConfig = {
+    const finalConfig: TableState<T, E, F> = {
       list: [],
       total: 0,
       listLoading: false,
@@ -57,7 +53,7 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
       data._valueGetter = () => table.v.row;
       table.queryAll();
     })
-    const tableRef = ref(finalConfig) as Ref<TableState<T, E, F>>
+    const tableRef = reactive(finalConfig) as UnwrapNestedRefs<TableState<T, E, F>>
     table._ref = tableRef;
     return [
       tableRef,
@@ -125,7 +121,10 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
       await this.queryAll();
     } catch (error) {
       console.error(error);
-      if (typeof error === 'string') return this.notifyError("失败", error);
+      if (typeof error === 'string') {
+        this.notifyError("失败", error);
+        return
+      }
       this.notifyError("失败", "操作发生错误，数据提交失败");
     }
     this.v.submitLoading = false;
@@ -144,16 +143,17 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
           return;
         }
       }
-      this.v.listLoading = true;
       await caller()
       this.notifySuccess("操作成功", confirm?.success ?? `${this.objName}修改成功`);
+      this.v.listLoading = true;
       await this.queryAll();
+      this.v.listLoading = false;
     } catch (error) {
       console.error(error);
-      if (typeof error === 'string') return this.notifyError("失败", error);
       this.notifyError("失败", confirm?.fail ?? "操作发生错误，数据提交失败");
+      this.v.listLoading = false;
+      throw error;
     }
-    this.v.listLoading = false;
   }
   // 删除
   async deleteRow(row: T) {
@@ -173,7 +173,6 @@ class BasicTable<T, E extends BasicQueryParams, F extends Queryable<T, E>> {
       this.notifySuccess("删除成功", `${this.objName}已被删除`);
     } catch (error) {
       console.error(error);
-      if (typeof error === 'string') return this.notifyError("失败", error);
       this.notifyError("失败", "操作发生错误，数据提交失败");
     }
     this.v.submitLoading = false;
