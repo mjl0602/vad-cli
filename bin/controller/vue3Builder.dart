@@ -23,17 +23,34 @@ class Vue3Builder extends VadProjectBuilder {
   Uri get dataSourceTemplate =>
       templatePath.resolve('./vue3/basic/queryable.ts');
   Uri get mixinTemplate => templatePath.resolve('./vue3/basic/basic-table.ts');
-  // 模板文件
-  Uri get pageTemplate => templatePath.resolve('./vue3/table.vue.sample');
-  Uri get apiTemplate => templatePath.resolve('./vue3/data.ts.sample');
+
+  // 模板页面
+  Uri get pageTemplate {
+    return config.pageTemplate != null
+        ? shellPath.resolve(config.pageTemplate)
+        : templatePath.resolve('./vue3/table.vue.sample');
+  }
+
+  // 模板API
+  Uri get apiTemplate {
+    return config.apiTemplate != null
+        ? shellPath.resolve(config.apiTemplate)
+        : templatePath.resolve('./vue3/data.ts.sample');
+  }
 
   /// 数据源的父类路径
-  Uri get dataSource =>
-      Uri.parse(config.apiPath).resolve('./source/queryable.ts');
+  Uri get dataSource {
+    return config.dataSource != null
+        ? shellPath.resolve(config.dataSource)
+        : Uri.parse(config.apiPath).resolve('./source/queryable.ts');
+  }
 
   /// mixin的路径
-  Uri get mixinPath =>
-      Uri.parse(config.pagePath).resolve('./basic/basic-table.ts');
+  Uri get mixinPath {
+    return config.mixinPath != null
+        ? shellPath.resolve(config.mixinPath)
+        : Uri.parse(config.pagePath).resolve('./basic/basic-table.ts');
+  }
 
   String get langType => 'ts';
 

@@ -16,6 +16,18 @@ class VadConfig {
   /// 数据源的路径，可以为空
   final String dataPath;
 
+  /// 页面的路径，可以为空
+  final String pageTemplate;
+
+  /// 数据源的路径，可以为空
+  final String apiTemplate;
+
+  /// 页面的路径，可以为空
+  final String dataSource;
+
+  /// 数据源的路径，可以为空
+  final String mixinPath;
+
   Uri get dataUri => Uri.parse(dataPath);
 
   /// 页面的路径，可以为空
@@ -27,6 +39,10 @@ class VadConfig {
     this.apiPath,
     this.dataPath,
     this.pagePath,
+    this.pageTemplate,
+    this.apiTemplate,
+    this.dataSource,
+    this.mixinPath,
   });
 
   VadConfig.fromJson(Map<String, dynamic> map)
@@ -36,6 +52,10 @@ class VadConfig {
           apiPath: SafeMap(map)['apiPath'].string,
           pagePath: SafeMap(map)['pagePath'].string,
           dataPath: SafeMap(map)['dataPath'].string,
+          pageTemplate: SafeMap(map)['pageTemplate'].string,
+          apiTemplate: SafeMap(map)['apiTemplate'].string,
+          dataSource: SafeMap(map)['pageTemplate'].string,
+          mixinPath: SafeMap(map)['apiTemplate'].string,
         );
 
   const VadConfig.defaultConfig()
@@ -53,6 +73,10 @@ class VadConfig {
         'apiPath': apiPath,
         'pagePath': pagePath,
         'dataPath': dataPath,
+        'pageTemplate': null,
+        'apiTemplate': null,
+        'dataSource': null,
+        'mixinPath': null,
       };
 
   /// 创建默认配置
