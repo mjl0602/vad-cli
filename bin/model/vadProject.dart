@@ -30,6 +30,7 @@ class VadProject {
         tableList.add(table);
       }
     }
+    if (list.length == 0) throw '${directory.path}未发现文件';
     return VadProject(
       dataPath: dataPath,
       list: tableList,

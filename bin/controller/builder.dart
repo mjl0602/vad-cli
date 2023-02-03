@@ -97,6 +97,8 @@ class VadProjectBuilder {
 
   /// 保存项目
   void saveProject([String target]) {
+    print('生成主要文件: ${project.list}');
+
     /// 生成主要文件
     for (var table in project.list) {
       if (table.camelName == '') {

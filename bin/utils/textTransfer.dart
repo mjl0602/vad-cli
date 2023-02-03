@@ -22,7 +22,23 @@ class TextTransfer {
         }
       }
     }
+  }
 
-    return result.toString();
+  /// 驼峰转横杠，abcAbcaBc -> abc-abca-bc
+  static String toDirName(String name) {
+    if (name?.isEmpty != false) {
+      return "";
+    }
+    var target = "";
+    for (String letter in name.split('')) {
+      if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.contains(letter)) {
+        target += '-';
+        letter = String.fromCharCode(letter.codeUnitAt(0) - 26);
+      }
+      target += letter;
+    }
+    target = target.replaceAll(RegExp('^-+'), '');
+
+    return target;
   }
 }

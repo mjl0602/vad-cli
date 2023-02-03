@@ -73,10 +73,10 @@ class VadConfig {
         'apiPath': apiPath,
         'pagePath': pagePath,
         'dataPath': dataPath,
-        'pageTemplate': null,
-        'apiTemplate': null,
-        'dataSource': null,
-        'mixinPath': null,
+        'pageTemplate': pageTemplate,
+        'apiTemplate': apiTemplate,
+        'dataSource': dataSource,
+        'mixinPath': mixinPath,
       };
 
   /// 创建默认配置
@@ -90,7 +90,10 @@ class VadConfig {
       var config = map['override'][tag];
       if (config.map.isNotEmpty) {
         print('已经按tag重写配置：${tag}');
-        jsonConfig = config.map;
+        for (var key in config.map.keys) {
+          jsonConfig[key] = config.map[key];
+        }
+        print('重写配置成功：${jsonConfig}');
       } else {
         print('未匹配tag：${tag}');
       }

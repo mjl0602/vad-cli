@@ -5,6 +5,7 @@ import '../model/vadKey.dart';
 import '../model/vadProject.dart';
 import '../model/vadTable.dart';
 import '../utils/path.dart';
+import '../utils/textTransfer.dart';
 import '../utils/type.dart';
 import 'builder.dart';
 import 'package:path/path.dart' as path;
@@ -64,12 +65,22 @@ class Vue3Builder extends VadProjectBuilder {
     var content = super.tableTemp(key, (str) {
       return '''
     <el-table-column label="@@@" align="center" &&&>
-      <template #default="scope: ##TableName##ModelRow">
+      <template #default="scope: ElTableRow<##TableName##Model>">
         $str
       </template>
     </el-table-column>''';
     });
     return content.replaceAll('slot-scope=', '#default=');
+  }
+
+  // 保存文件，如果存在，会将旧文件重命名为old后继续保存
+  @override
+  void savaFile(String content, Uri path, String fileName) {
+    var file = File.fromUri(
+        path.resolve('${TextTransfer.toDirName(fileName)}-manage/index.vue'));
+    print('生成:${file.path}');
+    file.createSync(recursive: true);
+    file.writeAsStringSync(content);
   }
 
   /// 获取Vue Page内容，并写入到对应Uri的文件
