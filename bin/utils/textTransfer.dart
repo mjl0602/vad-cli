@@ -22,6 +22,7 @@ class TextTransfer {
         }
       }
     }
+    return result.toString();
   }
 
   /// 驼峰转横杠，abcAbcaBc -> abc-abca-bc
