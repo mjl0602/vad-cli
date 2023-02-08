@@ -13,6 +13,7 @@ import 'model/vadKey.dart';
 import 'model/vadProject.dart';
 import 'utils/help.dart';
 import 'utils/path.dart';
+import 'utils/safeMap.dart';
 import 'web/server.dart'; // 使用其中两个类ArgParser和ArgResults
 
 ArgResults _argResults; // 声明ArgResults类型的顶级变量，保存解析的参数结果
@@ -60,6 +61,12 @@ Future onBuildCommand(String command) async {
   String tag = _argResults['tag'];
   print(_argResults['tag']);
   var file = File.fromUri(shellPath.resolve('vad-config.json'));
+  var jsonConfig = json.decode(file.readAsStringSync());
+  var map = SafeMap(jsonConfig);
+  var configMode = map['mode'].string;
+  if (configMode != null) mode = configMode;
+
+  if (configMode == null) throw '未提供mode或在vad-config.json中配置mode';
   VadConfig config = defaultConfigOfType(mode);
 
   if (command == 'config') {

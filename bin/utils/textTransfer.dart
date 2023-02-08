@@ -33,7 +33,7 @@ class TextTransfer {
     for (String letter in name.split('')) {
       if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.contains(letter)) {
         target += '-';
-        letter = String.fromCharCode(letter.codeUnitAt(0) - 26);
+        letter = letter.toLowerCase();
       }
       target += letter;
     }
