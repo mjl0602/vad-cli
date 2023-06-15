@@ -28,28 +28,28 @@ class Vue3Builder extends VadProjectBuilder {
   // 模板页面
   Uri get pageTemplate {
     return config.pageTemplate != null
-        ? shellPath.resolve(config.pageTemplate)
+        ? shellPath.resolve(config.pageTemplate!)
         : templatePath.resolve('./vue3/table.vue.sample');
   }
 
   // 模板API
   Uri get apiTemplate {
     return config.apiTemplate != null
-        ? shellPath.resolve(config.apiTemplate)
+        ? shellPath.resolve(config.apiTemplate!)
         : templatePath.resolve('./vue3/data.ts.sample');
   }
 
   /// 数据源的父类路径
   Uri get dataSource {
     return config.dataSource != null
-        ? shellPath.resolve(config.dataSource)
+        ? shellPath.resolve(config.dataSource!)
         : Uri.parse(config.apiPath).resolve('./source/queryable.ts');
   }
 
   /// mixin的路径
   Uri get mixinPath {
     return config.mixinPath != null
-        ? shellPath.resolve(config.mixinPath)
+        ? shellPath.resolve(config.mixinPath!)
         : Uri.parse(config.pagePath).resolve('./basic/basic-table.ts');
   }
 
@@ -61,7 +61,7 @@ class Vue3Builder extends VadProjectBuilder {
   }
 
   /// 表格内容
-  String tableTemp(VadKey key, [String Function(String) columnBuilder]) {
+  String tableTemp(VadKey key, [String Function(String)? columnBuilder]) {
     var content = super.tableTemp(key, (str) {
       return '''
     <el-table-column label="@@@" align="center" &&&>

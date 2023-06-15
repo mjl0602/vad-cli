@@ -13,20 +13,20 @@ class VadConfig {
   /// 接口的路径，可以为空
   final String apiPath;
 
-  /// 数据源的路径，可以为空
+  /// 数据源的路径
   final String dataPath;
 
   /// 页面的路径，可以为空
-  final String pageTemplate;
+  final String? pageTemplate;
 
   /// 数据源的路径，可以为空
-  final String apiTemplate;
+  final String? apiTemplate;
 
   /// 页面的路径，可以为空
-  final String dataSource;
+  final String? dataSource;
 
   /// 数据源的路径，可以为空
-  final String mixinPath;
+  final String? mixinPath;
 
   Uri get dataUri => Uri.parse(dataPath);
 
@@ -35,10 +35,10 @@ class VadConfig {
 
   const VadConfig({
     // this.type,
-    this.name,
-    this.apiPath,
-    this.dataPath,
-    this.pagePath,
+    required this.name,
+    required this.apiPath,
+    required this.dataPath,
+    required this.pagePath,
     this.pageTemplate,
     this.apiTemplate,
     this.dataSource,
@@ -48,10 +48,10 @@ class VadConfig {
   VadConfig.fromJson(Map<String, dynamic> map)
       : this(
           // type: SafeMap(map)['type'].string,
-          name: SafeMap(map)['name'].string,
-          apiPath: SafeMap(map)['apiPath'].string,
-          pagePath: SafeMap(map)['pagePath'].string,
-          dataPath: SafeMap(map)['dataPath'].string,
+          name: SafeMap(map)['name'].string ?? '',
+          apiPath: SafeMap(map)['apiPath'].string ?? '',
+          pagePath: SafeMap(map)['pagePath'].string ?? '',
+          dataPath: SafeMap(map)['dataPath'].string ?? '',
           pageTemplate: SafeMap(map)['pageTemplate'].string,
           apiTemplate: SafeMap(map)['apiTemplate'].string,
           dataSource: SafeMap(map)['pageTemplate'].string,
@@ -88,10 +88,10 @@ class VadConfig {
       var jsonConfig = json.decode(file.readAsStringSync());
       var map = SafeMap(jsonConfig);
       var config = map['override'][tag];
-      if (config.map.isNotEmpty) {
+      if ((config.map ?? {}).isNotEmpty) {
         print('已经按tag重写配置：${tag}');
-        for (var key in config.map.keys) {
-          jsonConfig[key] = config.map[key];
+        for (var key in config.map!.keys) {
+          jsonConfig[key] = config.map![key];
         }
         print('重写配置成功：${jsonConfig}');
       } else {

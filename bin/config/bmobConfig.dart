@@ -11,10 +11,10 @@ class BmobConfig extends VadConfig {
     this.bmobAppId,
     this.bmobKey,
     // String type,
-    String name,
-    String apiPath,
-    String dataPath,
-    String pagePath,
+    required String name,
+    required String apiPath,
+    required String dataPath,
+    required String pagePath,
   }) : super(
           // type: type,
           name: name,
@@ -23,17 +23,17 @@ class BmobConfig extends VadConfig {
           pagePath: pagePath,
         );
 
-  final String bmobAppId;
-  final String bmobKey;
+  final String? bmobAppId;
+  final String? bmobKey;
 
   BmobConfig.fromJson(SafeMap map)
       : this(
           bmobAppId: map['bmob']['appid'].string,
           bmobKey: map['bmob']['key'].string,
-          name: map['name'].string,
-          apiPath: map['apiPath'].string,
-          pagePath: map['pagePath'].string,
-          dataPath: map['dataPath'].string,
+          name: map['name'].string ?? '',
+          apiPath: map['apiPath'].string ?? '',
+          pagePath: map['pagePath'].string ?? '',
+          dataPath: map['dataPath'].string ?? '',
         );
 
   const BmobConfig.defaultConfig()

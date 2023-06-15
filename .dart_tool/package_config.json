@@ -17,10 +17,10 @@
       "name": "vad",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.12"
     }
   ],
-  "generated": "2023-02-06T08:33:47.222486Z",
+  "generated": "2023-06-15T02:31:28.498682Z",
   "generator": "pub",
   "generatorVersion": "2.17.3"
 }

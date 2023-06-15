@@ -9,8 +9,8 @@ class VadProject {
   final Uri dataPath;
 
   VadProject({
-    this.dataPath,
-    this.list,
+    required this.dataPath,
+    required this.list,
   });
 
   /// 从路径读取项目

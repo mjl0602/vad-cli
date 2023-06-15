@@ -22,9 +22,9 @@ class VadTable {
   final Uri dataUri;
 
   VadTable({
-    this.dataUri,
-    this.name,
-    this.list,
+    required this.dataUri,
+    required this.name,
+    required this.list,
   }) : assert(dataUri != null);
 
   /// 通过闭包创建一行，闭包会反复执行，并以`\n`连接
@@ -32,7 +32,7 @@ class VadTable {
       list.map<String>(builder).join('\n').trimLeft();
 
   /// TODO: 直接在这里读文件还靠谱点，因为一个table对应一个文件
-  static VadTable formFile(Uri dataUri) => null;
+  static VadTable? formFile(Uri dataUri) => null;
 
   /// 读取json
   static VadTable formJson(
@@ -47,7 +47,7 @@ class VadTable {
       if (value.string != null) {
         list.add(VadKey(
           key,
-          value.string,
+          value.string ?? '',
           value: '""',
         ));
       } else if (value.map != null) {
@@ -57,9 +57,9 @@ class VadTable {
           config['description'].value ?? '??',
           value: config['defaultValue'].value ?? '""',
           property: config['property'].value,
-          tableType: tableTypeOfStr(config['type'].string),
-          formType: formTypeOfStr(config['formType'].string),
-          submitType: submitTypeOfStr(config['submitType'].string),
+          tableType: tableTypeOfStr(config['type'].string ?? ''),
+          formType: formTypeOfStr(config['formType'].string ?? ''),
+          submitType: submitTypeOfStr(config['submitType'].string ?? ''),
         ));
       } else {
         print('$tableName 未读取成功');

@@ -16,7 +16,7 @@ import 'utils/path.dart';
 import 'utils/safeMap.dart';
 import 'web/server.dart'; // 使用其中两个类ArgParser和ArgResults
 
-ArgResults _argResults; // 声明ArgResults类型的顶级变量，保存解析的参数结果
+late ArgResults _argResults; // 声明ArgResults类型的顶级变量，保存解析的参数结果
 
 main(List<String> args) async {
   // 创建ArgParser的实例，同时指定需要输入的参数
@@ -149,6 +149,7 @@ VadConfig defaultConfigOfType(String type) {
   } else if (type == 'vue3') {
     return VadConfig.defaultConfig();
   } else {
-    throw '没有找到指定默认配置文件(defaultConfigOfType): $type';
+    throw '没有找到指定默认配置文件(defaultConfigOfType): $type \n'
+        '可用的config值:${["standard", "bmob", "axios", "vue3"]}';
   }
 }

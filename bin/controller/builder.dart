@@ -96,7 +96,7 @@ class VadProjectBuilder {
   }
 
   /// 保存项目
-  void saveProject([String target]) {
+  void saveProject([String? target]) {
     print('生成主要文件: ${project.list}');
 
     /// 生成主要文件
@@ -236,7 +236,7 @@ $str
   }
 
   /// 表格内容
-  String tableTemp(VadKey key, [String Function(String) columnBuilder]) {
+  String tableTemp(VadKey key, [String Function(String)? columnBuilder]) {
     String str = '<!--error-->';
     switch (key.tableType) {
       case TableType.string:

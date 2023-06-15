@@ -4,4 +4,4 @@ import 'dart:io';
 Uri templatePath = Platform.script.resolve('../template/');
 
 /// 脚本运行路径
-Uri shellPath = Uri.parse(Platform.environment['PWD']+'/');
+Uri shellPath = Uri.parse(Platform.environment['PWD']!+'/');
