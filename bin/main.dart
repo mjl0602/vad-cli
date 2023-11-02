@@ -56,9 +56,9 @@ main(List<String> args) async {
 }
 
 Future onBuildCommand(String command) async {
-  String mode = _argResults['mode'];
-  String target = _argResults['data'];
-  String tag = _argResults['tag'];
+  String mode = _argResults['mode'] ?? 'no-mode';
+  String? target = _argResults['data'];
+  String tag = _argResults['tag'] ?? 'no-tag';
   print(_argResults['tag']);
   var file = File.fromUri(shellPath.resolve('vad-config.json'));
   var jsonConfig = json.decode(file.readAsStringSync());
@@ -89,7 +89,7 @@ Future onBuildCommand(String command) async {
   } else if (command == 'build') {
     projectBuilder.saveProject(target);
   } else if (command == 'complete') {
-    projectBuilder.completeFile(target);
+    projectBuilder.completeFile(target ?? 'no-target');
   } else if (command == 'serve') {
     await VadServer.start(config);
   } else {
